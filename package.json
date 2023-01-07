@@ -1,0 +1,32 @@
+{
+  "name": "sprint_1",
+  "version": "1.0.0",
+  "description": "<img align=\"right\" width=\"96\" height=\"96\" title=\"Author logo\" src=\"http://daytec.ru/img/Ranjy-96.svg\">",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html -p 3000",
+    "dev": "parcel index.html -p 3000",
+    "build": "parcel build index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrHoft/sprint_1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrHoft/sprint_1/issues"
+  },
+  "homepage": "https://github.com/mrHoft/sprint_1#readme",
+  "devDependencies": {
+    "@parcel/resolver-glob": "^2.8.2",
+    "@parcel/transformer-inline-string": "^2.8.2",
+    "parcel": "^2.8.2",
+    "postcss": "^8.4.20",
+    "postcss-modules": "^4.3.1",
+    "postcss-nested-vars": "^1.0.0",
+    "postcss-simple-vars": "^7.0.1"
+  }
+}
