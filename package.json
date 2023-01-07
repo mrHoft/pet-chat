@@ -2,7 +2,7 @@
   "name": "sprint_1",
   "version": "1.0.0",
   "description": "<img align=\"right\" width=\"96\" height=\"96\" title=\"Author logo\" src=\"http://daytec.ru/img/Ranjy-96.svg\">",
-  "main": "index.js",
+  "default": "index.html",
   "scripts": {
     "start": "parcel src/index.html -p 3000",
     "dev": "parcel src/index.html -p 3000",
