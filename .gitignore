@@ -10,3 +10,5 @@ atlassian-ide-plugin.xml
 node_modules/
 *.lock
 .parcel-cache/
+dist/
+.github/
