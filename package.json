@@ -4,9 +4,9 @@
   "description": "<img align=\"right\" width=\"96\" height=\"96\" title=\"Author logo\" src=\"http://daytec.ru/img/Ranjy-96.svg\">",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html -p 3000",
-    "dev": "parcel index.html -p 3000",
-    "build": "parcel build index.html",
+    "start": "parcel src/index.html -p 3000",
+    "dev": "parcel src/index.html -p 3000",
+    "build": "parcel build src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

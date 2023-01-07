@@ -11,6 +11,4 @@ function router(evt) {
 	let route = resolveRoute(url);
 	route();
 };
-
-window.addEventListener('load', router);
-window.addEventListener('hashchange', router);
+export default router;
