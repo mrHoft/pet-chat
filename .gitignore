@@ -7,8 +7,10 @@ jspm_packages/
 *.log
 atlassian-ide-plugin.xml
 .eslintcache
+
 node_modules/
 *.lock
 .parcel-cache/
 dist/
 .github/
+*.bak
