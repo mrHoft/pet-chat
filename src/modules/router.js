@@ -1,4 +1,4 @@
-import * as routes from './routes.js';
+import * as routes from './routes_data.js';
 
 function resolveRoute(route) {
 	if(routes[route]) return routes[route];

@@ -1,23 +1,17 @@
-import * as template from 'bundle-text:../pages/*.tmpl';
-import AddButtons from '../components/button/button.js';
-import CloseButton from '../components/close/close.js';
-import MoreButton from '../components/more/more.js';
-import AttachButton from '../components/attach/attach.js';
+// import templates from 'bundle-text:../pages/*.tmpl';
+import templates from './templates_data.js'
 
-function tmpl(name='home', options={}) {
-	let rendered=template[name].toString()
-		.replace('{{close}}', CloseButton())
-		.replace('{{more}}', MoreButton())
-		.replace('{{attachment}}', AttachButton());
-	if(options.buttons){
-		rendered=rendered.replace('{{buttons}}', AddButtons(options.buttons));
-	}
+function tmpl(name, options) {
+	if (templates[name]==undefined) throw new Error(`No such template: ${name}`)
+	// console.log(name, options);
+	const template=typeof templates[name] == 'function' ? templates[name](options) : templates[name];
+	let rendered=template.toString()
 
-	let include=rendered.match(/{{(.*)}}/g);
+	const include=rendered.match(/{{(.*)}}/g);
 	if(include){
-		console.log(include);
-		include.forEach(name => {
-			rendered=rendered.replace(name,tmpl(name.slice(2,name.length-2)));
+		include.forEach(tmpl_string => {
+			const name=tmpl_string.slice(2,tmpl_string.length-2)
+			rendered=rendered.replace(tmpl_string,tmpl(name,options? options[name] : {}));
 		});
 	}
 	return rendered;
@@ -25,7 +19,6 @@ function tmpl(name='home', options={}) {
 
 function addTemplate(name='home', options={}) {
 	let element = document.getElementById(name);
-	// console.log(element);
 	element.innerHTML=tmpl(name, options);
 	return element;
 };

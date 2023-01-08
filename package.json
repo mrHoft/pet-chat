@@ -1,7 +1,7 @@
 {
   "name": "sprint_1",
   "version": "1.0.0",
-  "description": "<img align=\"right\" width=\"96\" height=\"96\" title=\"Author logo\" src=\"http://daytec.ru/img/Ranjy-96.svg\">",
+  "description": "Web messenger",
   "default": "index.html",
   "scripts": {
     "start": "parcel src/index.html -p 3000",
@@ -11,22 +11,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mrHoft/sprint_1.git"
+    "url": "git+https://github.com/mrHoft/middle.messenger.praktikum.yandex.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mrHoft/sprint_1/issues"
+    "url": "https://github.com/mrHoft/middle.messenger.praktikum.yandex/issues"
   },
-  "homepage": "https://github.com/mrHoft/sprint_1#readme",
+  "homepage": "https://github.com/mrHoft/middle.messenger.praktikum.yandex#readme",
+  "engines" : {
+	"node" : ">=12.0.0"
+  },
   "devDependencies": {
-    "@parcel/resolver-glob": "^2.8.2",
-    "@parcel/transformer-inline-string": "^2.8.2",
-    "parcel": "^2.8.2",
-    "postcss": "^8.4.20",
-    "postcss-modules": "^4.3.1",
-    "postcss-nested-vars": "^1.0.0",
-    "postcss-simple-vars": "^7.0.1"
+    "@parcel/resolver-glob": "2.8.2",
+    "@parcel/transformer-inline-string": "2.8.2",
+    "parcel": "2.8.2",
+    "postcss": "8.4.20",
+    "postcss-modules": "4.3.1",
+    "postcss-nested-vars": "1.0.0",
+    "postcss-simple-vars": "7.0.1"
   }
 }

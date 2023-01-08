@@ -1,3 +1,4 @@
+const bottom_frame=`
 <div id="bottom_frame">
 	{{attachment}}
 	<div class="message_box">
@@ -5,3 +6,6 @@
 	</div>
 	<div></div>
 </div>
+`;
+
+export default bottom_frame;
