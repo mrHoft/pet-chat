@@ -3,4 +3,4 @@ function show_message(element,text){
 	element.textContent=text;
 }
 
-export default {show_message};
+export {show_message};

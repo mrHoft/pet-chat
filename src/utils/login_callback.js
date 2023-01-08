@@ -9,7 +9,6 @@ function login_callback(){
 		'password': form.get('password')
 	}
 	const collection=element.getElementsByClassName("err");
-	console.log(collection[0]);
 
 	fetch('https://ya-praktikum.tech/api/v2/auth/signin',{
 		method:'POST',
