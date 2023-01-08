@@ -1,3 +1,4 @@
+const chat=`
 {{side_frame}}
 <div id="central_frame">
 	{{upper_frame}}
@@ -5,3 +6,6 @@
 	{{bottom_frame}}
 </div>
 {{details_frame}}
+`;
+
+export default chat;

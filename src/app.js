@@ -1,16 +1,11 @@
-// import {sum} from './modules/sum';
-// import MainButton from './components/button/button.jsx';
-const {tmpl}=require('./modules/template.js');
+import router from './modules/router.js';
+import login_callback from './utils/login_callback.js';
+import {details_switch} from './pages/details_frame.js';
 
-function App(){
-	return tmpl('home');
-		// <div className="app">
-		// 	<h1>Hello</h1>
-		// 	<MainButton style={{marginTop:30}} onClick={()=>console.log('Click')}>Button</MainButton>
-		// </div>
-}
+globalThis.utils=new Object({
+	'login':			login_callback,
+	'details_switch':	details_switch
+});
 
-// const root = document.querySelector('#root');
-// root.innerHTML=App();
-// root.textContent = sum(6, -1).toString();
-module.exports={App};
+window.addEventListener('load', router);
+window.addEventListener('hashchange', router);

@@ -1,3 +1,4 @@
+const side_frame=`
 <div id="side_frame">
 	<div id="header_frame">
 		{{more}}
@@ -8,5 +9,12 @@
 			</div>
 		</form>
 	</div>
-	<div id="chat_list"></div>
+	<div id="chat_list">
+		<h2>One</h2>
+		<h2>Two</h2>
+		<h2>Three</h2>
+	</div>
 </div>
+`;
+
+export default side_frame;
