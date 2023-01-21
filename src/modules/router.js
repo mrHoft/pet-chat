@@ -6,9 +6,10 @@ function resolveRoute(route) {
 };
 
 function router(evt) {
-	let url = window.location.hash.slice(1) || 'home';
+	// let url=window.location.hash.slice(1) || 'home';
+	let url=window.location.pathname.replace(/^\/|\/$/, '') || 'home';
 	console.log(url);
-	let route = resolveRoute(url);
+	let route=resolveRoute(url);
 	route();
 };
 export default router;

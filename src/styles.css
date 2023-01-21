@@ -4,20 +4,20 @@ $bg_color_panel:	#2A2A2A;
 $bg_color_element:	#2B5278;
 $bg_color_image:	#808080;
 $link_color:		#89C5CC;
-$font_stack:		Roboto;
+$font_stack:		roboto;
 
 body{
 	background-color: $bg_color_main;
 	font-family: $font_stack;
 	font-weight: 400;
 	color: #FFF;
-	margin: 0 0;
+	margin: 0;
 }
 
 h1{font-size: 30px; text-align: center;}
 h2{font-size: 18px;}
 .link{font-size: 18px;}
-.desc{font-size: 12px; color: rgba(255, 255, 255, 0.8); padding-left: 18px;}
+.desc{font-size: 12px; opacity: 0.8; padding-left: 18px;}
 .err{font-size: 12px; color: #FF1F1F; padding-left: 18px; display: none;}
 
 #chat{
@@ -28,24 +28,29 @@ h2{font-size: 18px;}
 
 /* ==Frames== */
 #central_frame{
-	width: calc(100% - 321px - 321px);
+	/* width: calc(100% - 321px - 321px); */
+	width: 100%;
+	margin-right: 320px;
 }
 
 #side_frame, #upper_frame, #bottom_frame, #details_frame, #header_frame{
 	background-color: $bg_color_panel;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 
 #upper_frame, #header_frame, #bottom_frame{
 	display: flex;
 	height: 40px;
 }
-#upper_frame, #header_frame{border-bottom: 1px solid #000;}
-#bottom_frame{border-top: 1px solid #000;}
+#upper_frame, #header_frame{border-bottom: 1px solid $bg_color_main;}
+#bottom_frame{border-top: 1px solid $bg_color_main;}
 
 .name{
 	margin-top: 10;
 	margin-left: 18;
-	width: 90%;
+	/* width: 90%; */
 }
 
 .message_box{
@@ -64,20 +69,25 @@ h2{font-size: 18px;}
 }
 
 #messages_frame{
-	height: calc(100vh - 82px);
+	height: calc(100vh - 80px);
 }
 
 #side_frame{
 	height: 100%;
 	width: 320px;
-	border-right: 1px solid #000;
+	border-right: 1px solid $bg_color_main;
 	flex-direction: column;
 }
 
 #details_frame{
 	height: 100%;
 	width: 320px;
-	border-left: 1px solid #000;
+	border-left: 1px solid $bg_color_main;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	overflow-x: hidden; /* Disable horizontal scroll */
 }
 
 #chat_list{
@@ -109,19 +119,23 @@ button{
 	width: 36px;
 	height: 36px;
 	border-radius: 18px;
-	margin-top: 0px;
+	margin-top: 0;
 	margin-left: calc(100% - 36px);
 	opacity: 0.7;
 	cursor: pointer;
 }
 .more_button{
-	margin: 2px 2px;
+	margin: 2px;
 	width: 36px;
 	height: 36px;
 	border-radius: 18px;
 	opacity: 0.7;
 	cursor: pointer;
 }
+#upper_frame .more_button{
+	margin-left: auto;
+}
+
 .search_button, .attach_button{
 	width: 36px;
 	height: 36px;
@@ -132,9 +146,10 @@ button{
 	opacity: 0.7;
 	cursor: pointer;
 }
+
 .search_button{background-image: url("/static/search.svg");}
 .attach_button{background-image: url("/static/attachment.svg");}
-.main_button:hover, .close_button:hover, .more_button:hover, .search_button:hover, .attach_button:hover{opacity: 1}
+.main_button:hover, .close_button:hover, .more_button:hover, .search_button:hover, .attach_button:hover{opacity: 1;}
 
 .search_form{
 	display: flex;
@@ -170,6 +185,8 @@ input{
 	width: 610px;
 	height: 480px;
 	margin-top: calc(50vh - 240px);
+	display: flex;
+	flex-direction: column;
 }
 
 #login, #signup, #password_change{
@@ -227,8 +244,8 @@ ul{
 
 /* == Images ==*/
 #people-24,#people-12{
-	width: 230px;
-	height: 440px;
+	width: 200px;
+	height: 400px;
 	border-style: none;
 	margin-left: auto;
 	margin-right: auto;

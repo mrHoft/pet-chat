@@ -20,14 +20,14 @@ const signup=`
 			<input type="password" class="main_inputbox" placeholder="Password*" name="password" required>
 			<label for="password" class="err">Error</label>
 
-			<input type="password" class="main_inputbox" placeholder="Repeat password*" name="psw-repeat" required>
+			<input type="password" class="main_inputbox" placeholder="Password (repeat)*" name="psw-repeat" required>
 			<label for="psw-repeat" class="err">Error</label>
 
 			<!--<label><input type="checkbox" checked="checked" name="remember"> Remember me</label>-->
 			<br><br>
 			<button type="submit" class="main_button">Sign up</button>
 		</form>
-		<a href="#login" style="text-align: center;">Log in</a>
+		<a href="/login" style="text-align: center;">Log in</a>
 	</div>
 </div>
 `;

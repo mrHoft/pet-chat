@@ -21,14 +21,14 @@ function error_page() {
 function home() {
 	makePage('home',{
 		'buttons':[
-			{'name':'Log in',		'onclick':"location.href='#login';"},
-			{'name':'Sign up',		'onclick':"location.href='#signup';"},
-			{'name':'Profile',		'onclick':"location.href='#profile';"},
-			{'name':'Change password',		'onclick':"location.href='#password_change';"},
-			{'name':'Chat',			'onclick':"location.href='#chat';"},
+			{'name':'Log in',		'onclick':"location.href='/login';"},
+			{'name':'Sign up',		'onclick':"location.href='/signup';"},
+			{'name':'Profile',		'onclick':"location.href='/profile';"},
+			{'name':'Change password',		'onclick':"location.href='/password_change';"},
+			{'name':'Chat',			'onclick':"location.href='/chat';"},
 			// {'name':'Chat list',	'onclick':"location.href='#chatlist';"},
-			{'name':'404',			'onclick':"location.href='#404';"},
-			{'name':'500',			'onclick':"location.href='#error_page';"},
+			{'name':'404',			'onclick':"location.href='/404';"},
+			{'name':'500',			'onclick':"location.href='/error_page';"},
 		]
 	});
 };

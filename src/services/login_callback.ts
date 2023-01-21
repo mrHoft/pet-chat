@@ -1,14 +1,14 @@
-import {show_message} from './utils.js'
+import {show_message} from '../utils/utils'
 
-function login_callback(){
+function login_callback():boolean{
 	let status=500;
-	const element=document.getElementById('login_form');
-	const form=new FormData(element);
+	const element:HTMLFormElement | null=document.getElementById('login_form') as HTMLFormElement;
+	const form:FormData=new FormData(element as HTMLFormElement);
 	const data={
 		'login': form.get('login'),
 		'password': form.get('password')
 	}
-	const collection=element.getElementsByClassName("err");
+	const collection:HTMLCollection=element.getElementsByClassName("err");
 
 	fetch('https://ya-praktikum.tech/api/v2/auth/signin',{
 		method:'POST',
@@ -24,7 +24,7 @@ function login_callback(){
 		return res.json();
 	})
 	.then((res)=>{
-		show_message(collection[0],res.reason);
+		show_message(collection[0] as HTMLElement,res.reason);
 		switch(status){
 			case 200:
 				console.log('Authorized!')

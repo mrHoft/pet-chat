@@ -1,4 +1,4 @@
-const login=`
+export default `
 {{close}}
 <h1>Log in</h1>
 <div>
@@ -17,9 +17,7 @@ const login=`
 				<button type="submit" class="main_button">Log in</button>
 			</div>
 		</form>
-		<a href="#signup" style="text-align: center;">Sign up</a>
+		<a href="/signup" style="text-align: center;">Sign up</a>
 	</div>
 </div>
 `;
-
-export default login;

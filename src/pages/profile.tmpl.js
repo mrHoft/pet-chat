@@ -29,7 +29,7 @@ const profile=`
 	<br><br>
 	<div class="selector">
 		<button type="submit" class="main_button">Update</button>
-		<a href="#password_change" style="text-align: center;">Change password</a>
+		<a href="/password_change" style="text-align: center;">Change password</a>
 	</div>
 </form>
 

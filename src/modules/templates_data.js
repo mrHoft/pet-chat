@@ -1,16 +1,16 @@
 // ==	Pages
-import home from '../pages/home.js';
-import error_page from '../pages/error_page.js';
-import login from '../pages/login.js';
-import signup from '../pages/signup.js';
-import profile from '../pages/profile.js';
-import password_change from '../pages/password_change.js';
+import home from '../pages/home.tmpl.js';
+import error_page from '../pages/error_page.tmpl.js';
+import login from '../pages/login.tmpl.js';
+import signup from '../pages/signup.tmpl.js';
+import profile from '../pages/profile.tmpl.js';
+import password_change from '../pages/password_change.tmpl.js';
 //		Main window
-import chat from '../pages/chat.js';
-import bottom_frame from '../pages/bottom_frame.js';
-import {details_frame} from '../pages/details_frame.js';
-import side_frame from '../pages/side_frame.js';
-import upper_frame from '../pages/upper_frame.js';
+import chat from '../pages/chat.tmpl.js';
+import bottom_frame from '../pages/bottom_frame.tmpl.js';
+import details_frame from '../pages/details_frame.tmpl.js';
+import side_frame from '../pages/side_frame.tmpl.js';
+import upper_frame from '../pages/upper_frame.tmpl.js';
 // ==	Components
 import AddButtons from '../components/button/button.js';
 import CloseButton from '../components/close/close.js';
