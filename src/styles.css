@@ -3,6 +3,7 @@ $bg_color_modal:	#1E2D41;
 $bg_color_panel:	#2A2A2A;
 $bg_color_element:	#2B5278;
 $bg_color_image:	#808080;
+$bg_color_scroll:	#808080;
 $link_color:		#89C5CC;
 $font_stack:		roboto;
 
@@ -11,6 +12,7 @@ body{
 	font-family: $font_stack;
 	font-weight: 400;
 	color: #FFF;
+	font-size: 16px;
 	margin: 0;
 }
 
@@ -29,8 +31,11 @@ h2{font-size: 18px;}
 /* ==Frames== */
 #central_frame{
 	/* width: calc(100% - 321px - 321px); */
+	display: flex;
 	width: 100%;
 	margin-right: 320px;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 #side_frame, #upper_frame, #bottom_frame, #details_frame, #header_frame{
@@ -44,18 +49,55 @@ h2{font-size: 18px;}
 	display: flex;
 	height: 40px;
 }
-#upper_frame, #header_frame{border-bottom: 1px solid $bg_color_main;}
-#bottom_frame{border-top: 1px solid $bg_color_main;}
 
-.name{
-	margin-top: 10;
-	margin-left: 18;
-	/* width: 90%; */
+#messages_frame{
+	height: 100%;
+	display: flex;
+	/* flex-flow: column nowrap; */
+	padding: 5px;
+	flex-direction: column-reverse;
+	font-size: 12px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	scrollbar-width: thin;
+	scrollbar-color: $bg_color_panel $bg_color_scroll;
 }
+#messages_frame::-webkit-scrollbar{
+	width: 10px;
+}
+#messages_frame::-webkit-scrollbar-track{
+	background: $bg_color_panel;
+}
+#messages_frame::-webkit-scrollbar-thumb{
+	background-color: $bg_color_scroll;
+	border: 3px solid $bg_color_panel;
+}
+
+#bottom_frame{
+	border-top: 1px solid $bg_color_main;
+}
+
+#upper_frame, #header_frame{border-bottom: 1px solid $bg_color_main;}
 
 .message_box{
 	margin-top: 10;
 	width: 90%;
+}
+
+.textbox{
+	background: none;
+	outline: none;
+	color: #FFF;
+	border: none;
+	width: 100%;
+	resize: none;
+}
+
+.name{
+	margin-top: 10;
+	margin-left: 18;
+	width: calc(100% - 80px)
+	/* width: 90%; */
 }
 
 .icon{
@@ -66,10 +108,6 @@ h2{font-size: 18px;}
 	border-radius: 18px;
 	background-color: $bg_color_image;
 	background-image: url("/static/icon-36.svg");
-}
-
-#messages_frame{
-	height: calc(100vh - 80px);
 }
 
 #side_frame{
@@ -91,6 +129,7 @@ h2{font-size: 18px;}
 }
 
 #chat_list{
+	width: 320px;
 	flex-direction: column;
 }
 
@@ -115,28 +154,9 @@ button{
 	opacity: 0.7;
 	cursor: pointer;
 }
-.close_button{
-	width: 36px;
-	height: 36px;
-	border-radius: 18px;
-	margin-top: 0;
-	margin-left: calc(100% - 36px);
-	opacity: 0.7;
-	cursor: pointer;
-}
-.more_button{
-	margin: 2px;
-	width: 36px;
-	height: 36px;
-	border-radius: 18px;
-	opacity: 0.7;
-	cursor: pointer;
-}
-#upper_frame .more_button{
-	margin-left: auto;
-}
+.main_button:hover{opacity: 1;}
 
-.search_button, .attach_button{
+.search_button{
 	width: 36px;
 	height: 36px;
 	border-style: none;
@@ -145,17 +165,9 @@ button{
 	background-position: 6 6;
 	opacity: 0.7;
 	cursor: pointer;
+	background-image: url("/static/search.svg");
 }
-
-.search_button{background-image: url("/static/search.svg");}
-.attach_button{background-image: url("/static/attachment.svg");}
-.main_button:hover, .close_button:hover, .more_button:hover, .search_button:hover, .attach_button:hover{opacity: 1;}
-
-.search_form{
-	display: flex;
-	width: calc(320px - 48px);
-	margin-top: 2px;
-}
+.search_button:hover{opacity: 1;}
 
 input{
 	background: none;
@@ -164,19 +176,17 @@ input{
 	padding-left: 18px;
 }
 
-.textbox{
-	border: none;
-	width: 100%;
-}
-
 .main_inputbox{
-	margin-top: 10px;
-	width: calc(300px - 36px);
+	margin-top: 5px;
+	margin-bottom: 5px;
+	width: 300px;
+	/* width: calc(300px - 36px); */
 	height: 36px;
 	border-radius: 15px;
 	border-color: $bg_color_element;
 	/* background-color: $bg_color_modal; */
 	border-style: solid;
+	box-sizing: border-box;
 }
 
 #home, #error_page{
@@ -212,13 +222,6 @@ input{
 	margin-top: calc(50vh - 320px);
 }
 
-.profile_inner{
-	display: flex;
-	flex-direction: row;
-	padding-left: 10%;
-	padding-right: 10%;
-}
-
 .avatar{
 	background-color: $bg_color_image;
 	height: 160px;
@@ -227,6 +230,12 @@ input{
 	background-image: url("/static/user.svg");
 	background-size: 160px;
 	cursor: pointer;
+}
+
+.avatar_form{
+	position: absolute;
+	top: calc(50vh - 320px + 100px);
+	left: calc(50vw + 400px - 160px - 120px);
 }
 
 .selector{

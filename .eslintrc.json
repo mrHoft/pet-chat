@@ -1,5 +1,8 @@
 {
-	"extends": "airbnb",
+	"extends": [
+		"airbnb",
+		"standard-with-typescript"
+	],
 	"parser": "@typescript-eslint/parser",
 	"plugins": ["@typescript-eslint"],
 	"rules": {
@@ -13,7 +16,8 @@
 	"space-infix-ops":"off",
 	"import/extensions": [
 		{
-		".js": "never"
+		".js": "never",
+		".tmpl": "never"
 		}]
 	},
 	"no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }]

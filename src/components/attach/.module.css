@@ -1,0 +1,13 @@
+.attach_button{
+	width: 36px;
+	height: 36px;
+	border-style: none;
+	background-color: rgba(0, 0, 0, 0);
+	background-repeat: no-repeat;
+	background-position: 6 6;
+	opacity: 0.7;
+	cursor: pointer;
+	background-image: url("/static/attachment.svg");
+}
+
+.attach_button:hover{opacity: 1;}

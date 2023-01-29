@@ -1,0 +1,9 @@
+.textbox{
+	background: none;
+	outline: none;
+	color: #FFF;
+	border: none;
+	width: 100%;
+	resize: none;
+	overflow: hidden;
+}

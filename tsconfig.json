@@ -5,9 +5,16 @@
 		"declaration": false,
 		"module": "commonjs",
 		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"sourceMap": true,
+		"moduleResolution": "node"
 	},
 	"include": [
-		"./src/**/*"
+		"src/**/*.ts",
+	],
+	"exclude": [
+		"src/**/*.tmpl",
 	],
 }

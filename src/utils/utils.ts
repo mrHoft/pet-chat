@@ -1,6 +1,9 @@
-function show_message(element:HTMLElement ,text: string){
-	element.style.display='block';
-	element.textContent=text;
+function show_message(element:HTMLElement | null, text: string='', color='red'){
+	if(!element) return;
+	element.style.display=(text=='')? 'none' : 'block';
+	// element.textContent=text;
+	element.innerHTML=text;
+	element.style.color=color;
 }
 
 function details_switch(){
