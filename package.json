@@ -4,9 +4,9 @@
 	"description": "Web messenger",
 	"default": "index.html",
 	"scripts": {
-		"start": "parcel src/index.html -p 3000",
+		"start": "parcel src/index.html -p 3000 --no-cache",
 		"dev": "parcel src/index.html -p 3000",
-		"build": "parcel build src/index.html",
+		"build": "parcel build src/index.html --dist-dir dist",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"repository": {
@@ -25,11 +25,15 @@
 	},
 	"targets": {
 		"default": {
+			"distDir": "./dist",
 			"sourceMap": false,
 			"engines": {
 				"browsers": ">=50%"
 			}
 		}
+	},
+	"Dependencies": {
+		"uuid": "9.0.0"
 	},
 	"devDependencies": {
 		"@parcel/resolver-glob": "2.8.2",
