@@ -13,7 +13,6 @@ function home() {
 	makePage('home',{
 		'buttons':[
 			{'name':'Log in',		'onclick':"location.href='/login';"},
-			{'name':'Log in',		'onclick':"location.href='#login';"},
 			{'name':'Sign up',		'onclick':"location.href='/signup';"},
 			{'name':'Profile',		'onclick':"location.href='/profile';"},
 			{'name':'Change password',		'onclick':"location.href='/password_change';"},
