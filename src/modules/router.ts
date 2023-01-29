@@ -1,7 +1,7 @@
 import * as routes from './routes_data';
 
 function resolveRoute(route:string) {
-	if(routes[route as keyof typeof routes]) return routes[route as keyof typeof routes];
+	if(routes[route]) return routes[route];
 	else return routes['no_page'];
 };
 
