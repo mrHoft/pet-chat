@@ -14,8 +14,13 @@ function keypress_event(event:KeyboardEvent):void{
 	if(event.key=='Enter' || event.key=='Backspace' || event.key=='Delete'){
 		const box=event.target as HTMLTextAreaElement;
 		let value:string=box?.value;
-		console.log(value);
 		if(value){
+			if(value.replace(/\n/gi,'')==''){
+				value='';
+				box.value=value;
+				return;
+			}
+			console.log(value);
 			if(!event.shiftKey && event.key=='Enter'){
 				let messages_frame:HTMLElement | null=document.getElementById('messages_frame');
 				if(messages_frame){

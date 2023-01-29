@@ -4,13 +4,13 @@ import {v4 as makeUUID} from 'uuid';
 
 let FLOW_DELAY=new Array();
 
-function tmpl(name:string, options):string {
-	if (templates[name]==undefined) throw new Error(`No such template: ${name}`)
-	// console.log(name, options);
-	const template=typeof templates[name] == 'function' ? templates[name](options) : templates[name];
+function tmpl(name:string, options:any):string {
+	let template=templates[name];
+	if(template==undefined) throw new Error(`No such template: ${name}`)
+	if(typeof template=='function') template=template(options);
 	let rendered=template.toString()
 
-	const components:Array<string>=rendered.match(/{{{(.*)}}}/g);
+	const components:string[] | null=rendered.match(/{{{(.*)}}}/g);
 	if(components){
 		components.forEach((tmpl_string:string) => {
 			const name=tmpl_string.slice(3,tmpl_string.length-3)
@@ -21,7 +21,7 @@ function tmpl(name:string, options):string {
 		});
 	}
 
-	const include:Array<string>=rendered.match(/{{(.*)}}/g);
+	const include:string[] | null=rendered.match(/{{(.*)}}/g);
 	if(include){
 		include.forEach((tmpl_string:string) => {
 			const name=tmpl_string.slice(2,tmpl_string.length-2)

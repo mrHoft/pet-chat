@@ -72,7 +72,7 @@ function about() {
 	main.appendChild(div);
 };
 */
-export {
+const routes:Record<string, Function>={
 	home,
 	no_page,
 	error_page,
@@ -83,3 +83,5 @@ export {
 	chat,
 	chatlist,
 };
+
+export default routes;

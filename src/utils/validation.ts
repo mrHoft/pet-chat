@@ -1,3 +1,5 @@
+import {show_message} from './utils';
+
 const Marks={
 	error: '&#9888; ',
 	valid: '&#x2714; '
@@ -25,11 +27,11 @@ function validateName(element:HTMLInputElement | undefined):number {
 	const err_el=element.nextElementSibling;
 	const value=element.value;
 	if(!checkName(value)) {
-		globalThis.utils.message(err_el, Marks.error+Messages.first_name, 'red');
+		show_message(err_el, Marks.error+Messages.first_name, 'red');
 		return 1;
 	}
 	// if (!value(/^[A-Za-z]+\s{1}[A-Za-z]+$/)) {}
-	globalThis.utils.message(err_el, Marks.valid, 'green');
+	show_message(err_el, Marks.valid, 'green');
 	return 0;
 }
 
@@ -38,14 +40,14 @@ function validateLogin(element:HTMLInputElement | undefined):number {
 	const err_el=element.nextElementSibling;
 	const value=element.value;
 	if(value.length<4){
-		globalThis.utils.message(err_el, Marks.error+'Minimum four characters', 'red');
+		show_message(err_el, Marks.error+'Minimum four characters', 'red');
 		return 1;
 	}
 	if(!checkLogin(value)){
-		globalThis.utils.message(err_el, Marks.error+'Wrong characters', 'red');
+		show_message(err_el, Marks.error+'Wrong characters', 'red');
 		return 1;
 	}
-	globalThis.utils.message(err_el, Marks.valid, 'green');
+	show_message(err_el, Marks.valid, 'green');
 	return 0;
 }
 
@@ -54,10 +56,10 @@ function validateEmail(element:HTMLInputElement | undefined):number {
 	const err_el=element.nextElementSibling;
 	const value=element.value;
 	if(!checkEmail(value)) {
-		globalThis.utils.message(err_el, Marks.error+Messages.email, 'red');
+		show_message(err_el, Marks.error+Messages.email, 'red');
 		return 1;
 	}
-	globalThis.utils.message(err_el, Marks.valid, 'green');
+	show_message(err_el, Marks.valid, 'green');
 	return 0;
 }
 
@@ -66,14 +68,14 @@ function validatePassword(element:HTMLInputElement | undefined):number {
 	const err_el=element.nextElementSibling;
 	const value=element.value;
 	if(value.length<8) {
-		globalThis.utils.message(err_el, Marks.error+'Minimum eight characters', 'red');
+		show_message(err_el, Marks.error+'Minimum eight characters', 'red');
 		return 1;
 	}
 	if(!checkPassword(value)) {	//Minimum eight characters, at least one letter and one number
-		globalThis.utils.message(err_el, Marks.error+'At least one letter and one number', 'red');
+		show_message(err_el, Marks.error+'At least one letter and one number', 'red');
 		return 1;
 	}
-	globalThis.utils.message(err_el, Marks.valid, 'green');
+	show_message(err_el, Marks.valid, 'green');
 	return 0;
 }
 
@@ -83,26 +85,26 @@ function validatePassword2(element:HTMLInputElement | undefined):number {
 	const password=element.previousElementSibling?.previousElementSibling as HTMLInputElement;
 	const value=element.value;
 	if(!(password && value.length>=8 && value===password.value)) {
-		globalThis.utils.message(err_el, Marks.error+Messages['psw-repeat'], 'red');
+		show_message(err_el, Marks.error+Messages['psw-repeat'], 'red');
 		return 1;
 	}
-	globalThis.utils.message(err_el, Marks.valid, 'green');
+	show_message(err_el, Marks.valid, 'green');
 	return 0;
 }
 
 function validatePhone(element:HTMLInputElement | undefined):number {
 	if(!element) return 1;
-	// const err_el=element.nextElementSibling;
+	const err_el=element.nextElementSibling;
 	let value=element.value;
 	value=value.replace(/\s+/g, '').replace('(', '').replace(')', '').replace('+', '');
 	if(!value.match(/^[0-9]{11}$/)) {
-		// globalThis.utils.message(err_el, Marks.error+'Wrong phone number', 'red');
+		show_message(err_el, Marks.error+'Wrong phone number', 'red');
 		return 1;
 	}
 	if(element && value.length>4 && value.match(/^[0-9]*$/)) {
 		element.value='+'+value.charAt(0)+'('+value.substring(1,4)+')'+ (value.length<8 && value.substring(4) || value.substring(4,7)+' '+(value.length<10 && value.substring(7) || value.substring(7,9)+' '+value.substring(9)));
 	}
-	// globalThis.utils.message(err_el, Marks.valid, 'green');
+	show_message(err_el, Marks.valid, 'green');
 	return 0;
 }
 
@@ -116,7 +118,7 @@ function validateMessage(value:string) {
 	return 0;
 }
 
-function validateFields(data) {
+function validateFields(data:any) {
 	if(!checkName(data['first_name'] || '')) return Messages['first_name'];
 	if(!checkName(data['second_name'] || '')) return Messages['second_name'];
 	if(!checkLogin(data['login'] || '')) return Messages['login'];
@@ -126,9 +128,15 @@ function validateFields(data) {
 	return '';
 }
 
-function validateSecurityFields(data) {
+function validateSecurityFields(data:any) {
 	if(!checkPassword(data['password'] || '')) return Messages['password'];
 	if(data['password']!=data['psw-repeat']) return Messages['psw-repeat'];
+	return '';
+}
+
+function validateLoginFields(data:any) {
+	if(!checkLogin(data['login'] || '')) return Messages['login'];
+	if(!checkPassword(data['password'] || '')) return Messages['password'];
 	return '';
 }
 
@@ -137,33 +145,32 @@ function callback_validate(event:FocusEvent){
 	if(!event.target) return false;
 	const target=event.target as HTMLInputElement;
 	if(target.name=='') return false;
-	let decline=0;
 	console.log(target.name);
 	switch(target.name){
 		case 'first_name':
-			decline+=validateName(target);
+			validateName(target);
 			break;
 		case 'second_name':
-			decline+=validateName(target);
+			validateName(target);
 			break;
 		case 'login':
-			decline+=validateLogin(target);
+			validateLogin(target);
 			break;
 		case 'email':
-			decline+=validateEmail(target);
+			validateEmail(target);
 			break;
 		case 'phone':
-			decline+=validatePhone(target);
+			validatePhone(target);
 			break;
 		case 'password':
-			decline+=validatePassword(target);
+			validatePassword(target);
 			break;
 		case 'psw-repeat':
-			decline+=validatePassword2(target);
+			validatePassword2(target);
 			break;
 		default:
 			console.log('Unexpected error');
 	}
 }
 
-export {callback_validate, validateMessage, validateFields, validateSecurityFields};
+export {callback_validate, validateMessage, validateFields, validateSecurityFields, validateLoginFields};

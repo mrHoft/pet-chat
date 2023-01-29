@@ -2,13 +2,15 @@
 	<div class="container">
 		<label for="login" class="desc">User name</label>
 		<input type="text" class="main_inputbox" placeholder="Enter Username" name="login" required>
-		<br>
+		<label for="login" class="err">Error</label>
+
 		<label for="password" class="desc">Password</label>
 		<input type="password" class="main_inputbox" placeholder="Enter Password" name="password" required>
 		<label for="password" class="err">Error</label>
 		<br>
 		<label><input type="checkbox" checked="checked" name="remember"> Remember me</label>
-		<br><br>
+		
+		<br><br><div class="err" style="text-align: center;">Error</div>
 		<button type="submit" class="main_button">Log in</button>
 	</div>
 </form>

@@ -1,5 +1,5 @@
-function show_message(element:HTMLElement | null, text: string='', color='red'){
-	if(!element) return;
+function show_message(element:Element | null, text: string='', color='red'){
+	if(!element || !(element instanceof HTMLElement)) return;
 	element.style.display=(text=='')? 'none' : 'block';
 	// element.textContent=text;
 	element.innerHTML=text;
