@@ -1,5 +1,15 @@
 import {show_message} from '../utils/utils';
 import {HTTPTransport} from './transport';
+import {validateLoginFields} from '../utils/validation';
+
+function timed_message(element:HTMLFormElement, text:string):void{
+	const collection:HTMLCollection=element.getElementsByClassName("err");
+	const err_el=collection.item(collection.length-1) as HTMLElement;
+	if(err_el){
+		show_message(err_el, text, 'red');
+		setTimeout(function(){show_message(err_el)}, 3000);
+	}
+}
 
 function callback_login(event:SubmitEvent):boolean{
 	event.preventDefault();
@@ -12,6 +22,13 @@ function callback_login(event:SubmitEvent):boolean{
 		'password': form.get('password')
 	}
 	console.log(data);
+	
+	const validation:string=validateLoginFields(data);
+	console.log(`Validation: ${!validation}`);
+	if(validation!=''){
+		timed_message(element, validation);
+		return false;
+	}
 	send_request(element,data);
 	return false;
 }
@@ -24,7 +41,6 @@ function send_request(element:HTMLFormElement, data:Record<string, unknown>){
 		'Content-Type': 'application/json'
 		};
 
-	const collection:HTMLCollection=element.getElementsByClassName("err");
 	const xhr=new HTTPTransport;
 	xhr.post(url,{headers:headers, data:data, timeout:3000})
 	.then((res)=>{
@@ -33,7 +49,7 @@ function send_request(element:HTMLFormElement, data:Record<string, unknown>){
 	})
 	.then((res)=>{
 		// console.log(res);
-		show_message(collection[0] as HTMLElement,res.reason);
+		timed_message(element, res.reason);;
 		switch(status){
 			case 200:
 				console.log('Authorized!')

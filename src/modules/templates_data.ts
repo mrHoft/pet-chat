@@ -26,7 +26,7 @@ import message_box from '../components/message_box/script';
 // ==	Test
 // import test from '../components/test';
 
-const templates={
+const templates:Record<string, Function | string>={
 //	Pages
 	bottom_frame,
 	details_frame,
