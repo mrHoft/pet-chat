@@ -14,4 +14,4 @@ const ut:Record<string, Function> = {
 (globalThis as any).utils=ut;
 
 window.addEventListener('load', router);
-window.addEventListener('hashchange', router);
+// window.addEventListener('hashchange', router);

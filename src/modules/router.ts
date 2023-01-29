@@ -5,9 +5,9 @@ function resolveRoute(route:string) {
 	else return routes['no_page'];
 };
 
-function router(evt:HashChangeEvent):void {
-	let url=window.location.hash.slice(1) || 'home';
-	// let url:string=window.location.pathname.replace(/^\/|\/$/, '') || 'home';
+function router(evt:Event):void {
+	// let url=window.location.hash.slice(1) || 'home';
+	let url:string=window.location.pathname.replace(/^\/|\/$/, '') || 'home';
 	console.log(`Route: ${url}`);
 	let route=resolveRoute(url);
 	route();
