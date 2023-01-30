@@ -4,14 +4,14 @@ import renderDOM from '../../services/render-dom';
 import {callback_validate} from '../../utils/validation';
 import callback_password from '../../services/callback-password';
 
-class Page extends Block{
+class PasswordForm extends Block{
 	render() {
 		return template;
 	}
 }
 
-function password_form(uuid:string){
-	const block=new Page('div',{
+function passwordForm(uuid:string){
+	const block=new PasswordForm('div',{
 		name: 'password_form',
 		events:{
 			submit:(event:SubmitEvent)=>callback_password(event),
@@ -21,4 +21,4 @@ function password_form(uuid:string){
 	renderDOM(uuid, block);
 }
 
-export default password_form;
+export default passwordForm;

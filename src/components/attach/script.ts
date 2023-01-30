@@ -2,18 +2,27 @@ import Block from '../../services/block';
 import renderDOM from '../../services/render-dom';
 import * as classes from './.module.css';
 
-class Button extends Block {
-	constructor(props) {
+type ButtonProps={
+	name:string,
+	text:string,
+	class?:string,
+	events?:Record<string, unknown>
+};
+
+class AttachmentButton extends Block<ButtonProps> {
+	constructor(props:ButtonProps) {
 		super("button", props);
 	}
 
 	render():string {
-		return this.props.text as string;
+		if(this.props.text){
+			return this.props.text;
+		}else return '';
 	}
 }
 
-function attach_button(uuid:string, props={}):void{
-	const button = new Button({
+function attachmentButton(uuid:string, props:Record<string, any>={}):void{
+	const button=new AttachmentButton(<ButtonProps>{
 		name: 'attach_button',
 		text: '&nbsp;',
 		class: classes.attach_button,
@@ -24,4 +33,4 @@ function attach_button(uuid:string, props={}):void{
 	renderDOM(uuid, button);
 }
 
-export default attach_button;
+export default attachmentButton;

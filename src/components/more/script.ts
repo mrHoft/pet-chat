@@ -2,19 +2,16 @@ import Block from '../../services/block';
 import renderDOM from '../../services/render-dom';
 import * as classes from './.module.css';
 
-class Button extends Block {
-	constructor(props) {
-		super("button", props);
-	}
+type ButtonProps={
+	name:string,
+	text:string,
+	class?:string,
+	events?:Record<string, unknown>
+};
 
-	render():string {
-		return this.props.text as string;
-	}
-}
-
-function more_button(uuid:string, props={}):void{
+function moreButton(uuid:string, props:Record<string, any>={}):void{
 	// console.log(props);
-	const button = new Button({
+	const button = new Block('button',<ButtonProps>{
 		name: 'more_button',
 		text: '&#9776;',
 		class: classes.more_button,
@@ -25,4 +22,4 @@ function more_button(uuid:string, props={}):void{
 	renderDOM(uuid, button);
 }
 
-export default more_button;
+export default moreButton;

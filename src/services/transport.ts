@@ -14,6 +14,8 @@ type Options = {
 	retries?: number;
 };
 
+type HTTPMethod=(url:string, options?:Options)=>Promise<XMLHttpRequest>;
+
 function queryStringify(data:Record<string, any>={}):string{
 	if(Object.keys(data).length==0) return '';
 	let out='';
@@ -22,13 +24,13 @@ function queryStringify(data:Record<string, any>={}):string{
 }
 
 class HTTPTransport {
-	get		= (url:string, options:Options) => this.request(url+queryStringify(options['data']), {...options,method: METHOD.GET}, options['timeout']);
-	put		= (url:string, options:Options) => this.request(url, {...options, method: METHOD.PUT}, options['timeout']);
-	post	= (url:string, options:Options) => this.request(url, {...options, method: METHOD.POST}, options['timeout']);
-	delete	= (url:string, options:Options) => this.request(url, {...options, method: METHOD.DELETE}, options['timeout']);
+	get:HTTPMethod		= (url, options={}) => this.request(url+queryStringify(options.data), {...options,method: METHOD.GET}, options.timeout);
+	put:HTTPMethod		= (url, options={}) => this.request(url, {...options, method: METHOD.PUT}, options.timeout);
+	post:HTTPMethod		= (url, options={}) => this.request(url, {...options, method: METHOD.POST}, options.timeout);
+	delete:HTTPMethod	= (url, options={}) => this.request(url, {...options, method: METHOD.DELETE}, options.timeout);
 
 	request(url:string, options:Options, timeout=5000):Promise<XMLHttpRequest> {
-		const {method=METHOD.POST, data, headers={}} = options;
+		const {method=METHOD.POST, data, headers={}}=options;
 		// console.log(data);
 
 		return new Promise((resolve, reject) => {
@@ -54,7 +56,7 @@ class HTTPTransport {
 	};
 }
 
-function fetchWithRetry(url:string, options:Options):Promise<HTTPTransport | XMLHttpRequest> {
+function fetchWithRetry(url:string, options:Options):Promise<HTTPTransport | XMLHttpRequest>{
 	const retries=options['retries'] || 1;
 	const xhr=new HTTPTransport;
 	function on_err(err:ErrorEvent){

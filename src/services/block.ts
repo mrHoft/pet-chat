@@ -1,19 +1,19 @@
 import EventBus from './event-bus';
 
-class Block {
+class Block<Props extends Record<string, any>={}> {
 	static EVENTS = {
 		INIT: "init",
 		FLOW_CDM: "flow:component-did-mount",
 		FLOW_CDU: "flow:component-did-update",
 		FLOW_RENDER: "flow:render"
-	};
+	} as const;
 
-	protected props:Record<string, unknown>;
+	protected props:Props;
 	private _element:(HTMLElement | null) = null;
-	private _meta:{tagName:string, props:any};
+	private _meta:{tagName:string, props:Props};
 	private eventBus:() => EventBus;
 
-	constructor(tagName: string = "div", props: any = {}) {
+	constructor(tagName: string = "div", props:Props) {
 		const eventBus = new EventBus();
 		this._meta = {
 			tagName,
@@ -26,18 +26,25 @@ class Block {
 		eventBus.emit(Block.EVENTS.INIT);
 	}
 
-	private _addEvents():void{
-		const {events={}}=this.props as {events:Record<string, ()=>void>};
-		Object.keys(events).forEach(eventName=>{
-			this._element!.addEventListener(eventName, events[eventName]);
-		});
-	}
-
 	private _registerEvents(eventBus: EventBus):void {
 		eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
 		eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+	}
+
+	private _addEvents():void{
+		const {events={}}=this.props;
+		Object.keys(events).forEach(eventName=>{
+			this._element!.addEventListener(eventName, events[eventName]);
+		});
+	}
+
+	private _removeEvents(oldProps:Props):void{
+		const {events={}}=oldProps;
+		Object.keys(events).forEach(eventName=>{
+			this._element!.removeEventListener(eventName, events[eventName]);
+		});
 	}
 
 	private _createResources():void {
@@ -50,30 +57,31 @@ class Block {
 		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 	}
 
-	private _componentDidMount(oldProps:any):void {
+	private _componentDidMount(oldProps:Props):void {
 		this.componentDidMount(oldProps);
 	}
 
 	// Может переопределять пользователь, необязательно трогать
-	protected componentDidMount(oldProps:any) {}
+	protected componentDidMount(oldProps:Props) {}
 
 	protected dispatchComponentDidMount() {
 		this.eventBus().emit(Block.EVENTS.FLOW_CDM);
 	}
 
-	private _componentDidUpdate(oldProps:any, newProps:any):void {
+	private _componentDidUpdate(oldProps:Props, newProps:Props):void {
 		if (this.componentDidUpdate(oldProps, newProps)) {
+			this._removeEvents(oldProps);
 			this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
 		}
 	}
 
 	// Может переопределять пользователь, необязательно трогать
 	// Used universal comparison
-	protected componentDidUpdate(oldProps:any, newProps:any):boolean {
+	protected componentDidUpdate(oldProps:Props, newProps:Props):boolean {
 		return (Object.keys(oldProps).length==Object.keys(newProps).length && !Object.keys(newProps).every(key=>oldProps[key]!==newProps[key]));
 	}
 
-	setProps = (nextProps:any):void => {
+	setProps=(nextProps:Props):void => {
 		if (!nextProps) return;
 
 		Object.assign(this.props, nextProps);
@@ -84,12 +92,9 @@ class Block {
 	}
 
 	private _render():void {
-		const block:string=this.render();
-		// Этот небезопасный метод для упрощения логики
-		// Используйте шаблонизатор из npm или напишите свой безопасный
-		// Нужно не в строку компилировать (или делать это правильно),
-		// либо сразу в DOM-элементы возвращать из compile DOM-ноду
-		this._element!.innerHTML=block;
+		const block:string | HTMLElement=this.render();
+		if(typeof block=='string') this._element!.innerHTML=block;
+		else this._element!.appendChild(block);
 		if(this.props.class) this._element!.className=this.props.class as string;
 		
 		if(this._element instanceof HTMLTextAreaElement){
@@ -105,10 +110,10 @@ class Block {
 		console.log('Rendered', this._meta.tagName, this.props.name);
 	}
 
-	// Может переопределять пользователь, необязательно трогать
-	protected render():string {
+	// Может переопределять пользователь
+	protected render():string | HTMLElement{
 		if(this.props.text){
-			return this.props.text as string;
+			return this.props.text;
 		}else return '';
 	}
 
@@ -116,12 +121,12 @@ class Block {
 		return this.element as HTMLElement;
 	}
 
-	private _makePropsProxy(props:any) {
+	private _makePropsProxy(props:Props) {
 		const self = this;
 		const proxy=new Proxy(props, { 
-			set(target, prop, newValue) {
+			set(target:Record<string, any>, prop:string, newValue:unknown) {
 				const oldTarget={...target}
-				target[prop] = newValue;
+				target[prop]=newValue;
 				self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
 				return true;
 			},
@@ -129,7 +134,7 @@ class Block {
 				throw new Error('нет доступа');
 			},
 		});
-		return proxy;
+		return proxy as Props;
 	}
 
 	private _createDocumentElement(tagName:string) {
