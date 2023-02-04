@@ -1,0 +1,34 @@
+import Block from '../../services/block';
+import renderDOM from '../../services/render-dom';
+import * as classes from './.module.css';
+
+type ButtonProps={
+	name:string,
+	text:string,
+	class?:string,
+	events?:Record<string, unknown>
+};
+
+class CloseButton extends Block<ButtonProps>{
+	constructor(props:ButtonProps) {
+		super("button", props);
+	}
+
+	render():string {
+		return this.props.text;
+	}
+}
+
+function closeButton(uuid:string, props:Record<string, any>={}):void{
+	const button = new CloseButton(<ButtonProps>{
+		name: 'close_button',
+		text: '&times;',
+		class: classes.close_button,
+		events:{
+			click:()=>window.open('/', '_self')
+		}
+	});
+	renderDOM(uuid, button);
+}
+
+export default closeButton;
