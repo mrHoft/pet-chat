@@ -3,6 +3,7 @@ import * as utils from '../utils/utils';
 
 function no_page() {
 	makePage();
+	return true;
 };
 
 function error_page() {
@@ -13,32 +14,37 @@ function home() {
 	makePage('home',{
 		'buttons':[
 			{'name':'Log in',		'onclick':"location.href='/login';"},
-			{'name':'Sign up',		'onclick':"location.href='/signup';"},
+			{'name':'Sign up',		'onclick':"location.href='/sign-up';"},
 			{'name':'Profile',		'onclick':"location.href='/profile';"},
 			{'name':'Change password',		'onclick':"location.href='/password_change';"},
 			{'name':'Chat',			'onclick':"location.href='/chat';"},
 //			{'name':'Chat list',	'onclick':"location.href='/chatlist';"},
 			{'name':'404',			'onclick':"location.href='/404';"},
-			{'name':'500',			'onclick':"location.href='/error_page';"},
+			{'name':'500',			'onclick':"location.href='/500';"},
 //			{'name':'Test',			'onclick':"location.href='/test';"},
 		]
 	});
+	return true;
 };
 
 function login() {
 	makePage('login');
+	return true;
 }
 
 function signup() {
 	makePage('signup');
+	return true;
 }
 
 function profile(){
 	makePage('profile');
+	return true;
 }
 
 function password_change(){
 	makePage('password_change');
+	return true;
 }
 
 function chat() {
@@ -54,10 +60,12 @@ function chat() {
 			}
 		}
 	});
+	return true;
 }
 
 function chatlist() {
 	makePage('chatlist');
+	return true;
 }
 /*
 function about() {

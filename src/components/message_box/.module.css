@@ -6,4 +6,6 @@
 	width: 100%;
 	resize: none;
 	overflow: hidden;
+	height: 19px;
+	font-size: 12px;
 }

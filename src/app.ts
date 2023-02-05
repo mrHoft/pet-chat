@@ -1,17 +1,14 @@
-import router from './modules/router';
-import login_callback from './services/callback-login';
-import * as utils from './utils/utils';
-import * as transport from './services/transport';
+import Router from './modules/Router';
+import routes from './modules/routes_data';
 
-const ut:Record<string, Function> = {
-	login: login_callback,
-	details_switch: utils.details_switch,
-	message: utils.show_message,
-	transport: transport.HTTPTransport,
-	fetchWithRetry: transport.fetchWithRetry
-};
-
-(globalThis as any).utils=ut;
-
-window.addEventListener('load', router);
-// window.addEventListener('hashchange', router);
+const router=Router.get(".app");
+router
+	.use('/', routes.home)
+	.use('/404', routes.no_page)
+	.use('/500', routes.error_page)
+	.use('/login', routes.login)
+	.use('/sign-up', routes.signup)
+	.use('/profile', routes.profile)
+	.use('/password_change', routes.password_change)
+	.use('/chat', routes.chat)
+	.start();

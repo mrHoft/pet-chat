@@ -1,5 +1,5 @@
-import Block from '../../services/block';
-import renderDOM from '../../services/render-dom';
+import Component from '../../services/Component';
+import {replaceDOM} from '../../services/render-dom';
 import * as classes from './.module.css';
 
 type ButtonProps={
@@ -9,7 +9,7 @@ type ButtonProps={
 	events?:Record<string, unknown>
 };
 
-class AttachmentButton extends Block<ButtonProps> {
+class AttachmentButton extends Component<ButtonProps> {
 	constructor(props:ButtonProps) {
 		super("button", props);
 	}
@@ -25,12 +25,12 @@ function attachmentButton(uuid:string, props:Record<string, any>={}):void{
 	const button=new AttachmentButton(<ButtonProps>{
 		name: 'attach_button',
 		text: '&nbsp;',
-		class: classes.attach_button,
+		className: classes.attach_button,
 		events:{
 			click:()=>props['onclick'] ? props['onclick']() : window.open('#', '_self')
 		}
 	});
-	renderDOM(uuid, button);
+	replaceDOM(uuid, button);
 }
 
 export default attachmentButton;

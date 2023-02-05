@@ -1,5 +1,5 @@
-import Block from '../../services/block';
-import renderDOM from '../../services/render-dom';
+import Component from '../../services/Component';
+import {replaceDOM} from '../../services/render-dom';
 import * as classes from './.module.css';
 
 type ButtonProps={
@@ -9,7 +9,7 @@ type ButtonProps={
 	events?:Record<string, unknown>
 };
 
-class CloseButton extends Block<ButtonProps>{
+class CloseButton extends Component<ButtonProps>{
 	constructor(props:ButtonProps) {
 		super("button", props);
 	}
@@ -23,12 +23,12 @@ function closeButton(uuid:string, props:Record<string, any>={}):void{
 	const button = new CloseButton(<ButtonProps>{
 		name: 'close_button',
 		text: '&times;',
-		class: classes.close_button,
+		className: classes.close_button,
 		events:{
 			click:()=>window.open('/', '_self')
 		}
 	});
-	renderDOM(uuid, button);
+	replaceDOM(uuid, button);
 }
 
 export default closeButton;

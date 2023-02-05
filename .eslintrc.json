@@ -6,19 +6,16 @@
 	"parser": "@typescript-eslint/parser",
 	"plugins": ["@typescript-eslint"],
 	"rules": {
-	"no-unused-vars": 2,
-	"max-len": [1, 100],
-	"max-params": [2, 3],
-
-	"linebreak-style": ["error", "windows"],
-	"camelcase":"off",
-	"object-curly-spacing":"off",
-	"space-infix-ops":"off",
-	"import/extensions": [
-		{
-		".js": "never",
-		".tmpl": "never"
-		}]
+		"no-constructor-return": "off",
+		"no-use-before-define": "off",
+		"no-unused-vars": 2,
+		"max-len": [1, 100],
+		"max-params": [2, 3],
+		"linebreak-style": ["error", "windows"],
+		"camelcase":"off",
+		"object-curly-spacing":"off",
+		"space-infix-ops":"off",
+		"import/extensions": [{".js": "never", ".tmpl": "never"}]
 	},
 	"no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }]
 }

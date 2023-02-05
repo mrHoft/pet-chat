@@ -1,6 +1,6 @@
 import EventBus from './event-bus';
 
-class Block<Props extends Record<string, any>={}> {
+class Component<Props extends Record<string, any>={}> {
 	static EVENTS = {
 		INIT: "init",
 		FLOW_CDM: "flow:component-did-mount",
@@ -23,14 +23,14 @@ class Block<Props extends Record<string, any>={}> {
 		this.props = this._makePropsProxy(props);
 		this.eventBus = () => eventBus;
 		this._registerEvents(eventBus);
-		eventBus.emit(Block.EVENTS.INIT);
+		eventBus.emit(Component.EVENTS.INIT);
 	}
 
 	private _registerEvents(eventBus: EventBus):void {
-		eventBus.on(Block.EVENTS.INIT, this.init.bind(this));
-		eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
-		eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
-		eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this));
+		eventBus.on(Component.EVENTS.INIT, this.init.bind(this));
+		eventBus.on(Component.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));
+		eventBus.on(Component.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this));
+		eventBus.on(Component.EVENTS.FLOW_RENDER, this._render.bind(this));
 	}
 
 	private _addEvents():void{
@@ -54,7 +54,7 @@ class Block<Props extends Record<string, any>={}> {
 
 	protected init():void {
 		this._createResources();
-		this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+		this.eventBus().emit(Component.EVENTS.FLOW_RENDER);
 	}
 
 	private _componentDidMount(oldProps:Props):void {
@@ -65,13 +65,13 @@ class Block<Props extends Record<string, any>={}> {
 	protected componentDidMount(oldProps:Props) {}
 
 	protected dispatchComponentDidMount() {
-		this.eventBus().emit(Block.EVENTS.FLOW_CDM);
+		this.eventBus().emit(Component.EVENTS.FLOW_CDM);
 	}
 
 	private _componentDidUpdate(oldProps:Props, newProps:Props):void {
 		if (this.componentDidUpdate(oldProps, newProps)) {
 			this._removeEvents(oldProps);
-			this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
+			this.eventBus().emit(Component.EVENTS.FLOW_RENDER);
 		}
 	}
 
@@ -92,12 +92,16 @@ class Block<Props extends Record<string, any>={}> {
 	}
 
 	private _render():void {
-		const block:string | HTMLElement=this.render();
-		if(typeof block=='string') this._element!.innerHTML=block;
-		else this._element!.appendChild(block);
-		if(this.props.class) this._element!.className=this.props.class as string;
-		
-		if(this._element instanceof HTMLTextAreaElement){
+		const component:string | HTMLElement=this.render();
+		if(typeof component=='string') this._element!.innerHTML=component;
+		else this._element!.appendChild(component);
+
+		if(this.props.className) this._element!.className=this.props.className as string;
+		if(this._element instanceof HTMLDivElement){
+			if(this.props.contentEditable) this._element!.contentEditable=this.props.contentEditable as string;
+			if(this.props.autofocus) this._element!.autofocus=this.props.autofocus as boolean;
+		}		
+		if(this._element instanceof HTMLTextAreaElement){	//Changed to div in this project
 			if(this.props.rows) this._element!.rows=this.props.rows as number;
 			if(this.props.placeholder) this._element!.placeholder=this.props.placeholder as string;
 			if(this.props.autofocus) this._element!.autofocus=this.props.autofocus as boolean;
@@ -117,7 +121,7 @@ class Block<Props extends Record<string, any>={}> {
 		}else return '';
 	}
 
-	getContent(): HTMLElement{
+	getElement(): HTMLElement{
 		return this.element as HTMLElement;
 	}
 
@@ -127,11 +131,11 @@ class Block<Props extends Record<string, any>={}> {
 			set(target:Record<string, any>, prop:string, newValue:unknown) {
 				const oldTarget={...target}
 				target[prop]=newValue;
-				self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+				self.eventBus().emit(Component.EVENTS.FLOW_CDU, oldTarget, target);
 				return true;
 			},
 			deleteProperty(target, prop) {
-				throw new Error('нет доступа');
+				throw new Error('Deleting property denied');
 			},
 		});
 		return proxy as Props;
@@ -143,12 +147,12 @@ class Block<Props extends Record<string, any>={}> {
 	}
 
 	show():void {
-		this.getContent().style.display = "block";
+		this.getElement().style.display = "Component";
 	}
 
 	hide():void {
-		this.getContent().style.display = "none";
+		this.getElement().style.display = "none";
 	}
 }
 
-export default Block;
+export default Component;

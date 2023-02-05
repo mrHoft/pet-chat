@@ -1,10 +1,10 @@
 import template from './template.tmpl';
-import Block from '../../services/block';
-import renderDOM from '../../services/render-dom';
+import Component from '../../services/Component';
+import {replaceDOM} from '../../services/render-dom';
 import {callback_validate} from '../../utils/validation';
 import callback_signup from '../../services/callback-sugnup';
 
-class SignupForm extends Block{
+class SignupForm extends Component{
 	render() {
 		return template;
 	}
@@ -18,7 +18,7 @@ function signupForm(uuid:string){
 			focusout:(event:FocusEvent)=>callback_validate(event),
 		}
 	});
-	renderDOM(uuid, block);
+	replaceDOM(uuid, block);
 }
 
 export default signupForm;

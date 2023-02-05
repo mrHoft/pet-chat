@@ -1,14 +1,14 @@
 // import template from './template.tmpl';
-import Block from '../../services/block';
+import Component from '../../services/Component';
 import * as classes from './.module.css';
 
 function message(container:Element, text:string){
-	const block=new Block('div',{
+	const block=new Component('div',{
 		name: 'message',
-		class: classes.message,
+		className: classes.message,
 		text: text
 	});
-	container.insertBefore(block.getContent(),container.firstChild)
+	container.insertBefore(block.getElement(),container.firstChild)
 }
 
 export default message;

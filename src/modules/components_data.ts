@@ -1,4 +1,5 @@
 // ==	Pages
+/* Changed to Parcel bundle-text import
 import home from '../pages/home.tmpl';
 import error_page from '../pages/error_page.tmpl';
 import login from '../pages/login.tmpl';
@@ -11,9 +12,10 @@ import bottom_frame from '../pages/bottom_frame.tmpl';
 import details_frame from '../pages/details_frame.tmpl';
 import side_frame from '../pages/side_frame.tmpl';
 import upper_frame from '../pages/upper_frame.tmpl';
+*/
 // ==	Components
-import add_buttons from '../components/button/button';
-import add_text from '../components/add_text';
+import buttons from '../components/button/script';
+import add_text from '../components/add_text/script';
 import close_button from '../components/close/script';
 import more_button from '../components/more/script';
 import attach_button from '../components/attach/script';
@@ -28,6 +30,7 @@ import message_box from '../components/message_box/script';
 
 const templates:Record<string, Function | string>={
 //	Pages
+/*
 	bottom_frame,
 	details_frame,
 	side_frame,
@@ -39,9 +42,10 @@ const templates:Record<string, Function | string>={
 	signup,
 	profile,
 	password_change,
+*/
 //	Components
-	buttons:			add_buttons,
 	text:				add_text,
+	buttons,
 	close_button,
 	more_button,
 	attach_button,

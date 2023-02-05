@@ -1,10 +1,10 @@
 import template from './template.tmpl';
-import Block from '../../services/block';
-import renderDOM from '../../services/render-dom';
+import Component from '../../services/Component';
+import {replaceDOM} from '../../services/render-dom';
 import login_callback from '../../services/callback-login';
 import {callback_validate} from '../../utils/validation';
 
-class Page extends Block{
+class Page extends Component{
 	render() {
 		return template;
 	}
@@ -22,7 +22,7 @@ function login_form(uuid:string){
 			},
 		}
 	});
-	renderDOM(uuid, block);
+	replaceDOM(uuid, block);
 }
 
 export default login_form;

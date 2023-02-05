@@ -1,61 +1,60 @@
 // import template from './template.tmpl';
-import Block from '../../services/block';
-import renderDOM from '../../services/render-dom';
+import Component from '../../services/Component';
+import {replaceDOM} from '../../services/render-dom';
 import * as classes from './.module.css';
 import message from '../message/script';
 
-class Input extends Block {
-	constructor(props:any) {
-		super("textarea", props);
-	}
-}
-
 function keypress_event(event:KeyboardEvent):void{
 	if(event.key=='Enter' || event.key=='Backspace' || event.key=='Delete'){
-		const box=event.target as HTMLTextAreaElement;
-		let value:string=box?.value;
+		const box=event.target as HTMLDivElement;
+		let value:string=box?.innerHTML;
 		if(value){
-			if(value.replace(/\n/gi,'')==''){
+			// console.log(value);
+			if(value.replace(/\<\/?(div)?(br)?\>/gi,'')==''){
 				value='';
-				box.value=value;
+				box.innerHTML=value;
 				return;
 			}
-			console.log(value);
+			value.trim();
+			if(event.key=='Enter'){
+				value=value.replace(/\<\/?div\>/gi,'');
+				while(value.endsWith('<br>')) value=value.slice(0,-4);
+			}
 			if(!event.shiftKey && event.key=='Enter'){
 				let messages_frame:HTMLElement | null=document.getElementById('messages_frame');
 				if(messages_frame){
-					value=value.replace(/\n/gi,'<br>');
-					// messages_frame.innerHTML+=value;
+					console.log(value);
 					message(messages_frame,value);
 					// messages_frame.scrollTop=messages_frame.scrollHeight;
-					// if(messages_frame.lastElementChild) messages_frame.lastElementChild.scrollIntoView();
+					if(messages_frame.firstElementChild) messages_frame.firstElementChild.scrollIntoView();
 				}
 				value='';
-				box.value=value;
+				box.innerHTML=value;
 			}
 			let element:HTMLElement | null=document.getElementById('bottom_frame');
 			if(element){
-				const rows=Math.min(value.split('\n').length,5);
+				const rows=value=='' ? 0 : Math.min(value.split('<br>').length,5);
 				// console.log(rows);
-				element.style.height=40+(rows-1)*16+'px';
-				box.style.height=19+(rows-1)*16+'px';
+				element.style.height=40+(rows)*14+'px';
+				box.style.height=19+(rows)*14+'px';
 			}
 		}
 	}
 }
 
 function message_box(uuid:string){
-	const block=new Input({
+	const block=new Component('div',{
 		name: 'message_box',
-		class: classes.textbox,
+		className: classes.textbox,
 		placeholder: 'Message text',
-		rows: 1,
+		// rows: 1,
 		autofocus: true,
+		contentEditable: 'true',
 		events:{
 			keyup: keypress_event,
 		}
 	});
-	renderDOM(uuid, block);
+	replaceDOM(uuid, block);
 }
 
 export default message_box;

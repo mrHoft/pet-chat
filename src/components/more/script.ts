@@ -1,5 +1,5 @@
-import Block from '../../services/block';
-import renderDOM from '../../services/render-dom';
+import Component from '../../services/Component';
+import {replaceDOM} from '../../services/render-dom';
 import * as classes from './.module.css';
 
 type ButtonProps={
@@ -11,15 +11,15 @@ type ButtonProps={
 
 function moreButton(uuid:string, props:Record<string, any>={}):void{
 	// console.log(props);
-	const button = new Block('button',<ButtonProps>{
+	const button = new Component('button',<ButtonProps>{
 		name: 'more_button',
 		text: '&#9776;',
-		class: classes.more_button,
+		className: classes.more_button,
 		events:{
 			click:()=>props['onclick'] ? props['onclick']() : window.open('/', '_self')
 		}
 	});
-	renderDOM(uuid, button);
+	replaceDOM(uuid, button);
 }
 
 export default moreButton;

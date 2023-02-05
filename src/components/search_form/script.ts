@@ -1,9 +1,9 @@
 import template from './template.tmpl';
-import Block from '../../services/block';
-import renderDOM from '../../services/render-dom';
+import Component from '../../services/Component';
+import {replaceDOM} from '../../services/render-dom';
 import * as classes from './.module.css';
 
-class SearchForm extends Block{
+class SearchForm extends Component{
 	render() {
 		return template;
 	}
@@ -12,7 +12,7 @@ class SearchForm extends Block{
 function searchForm(uuid:string){
 	const block=new SearchForm('div',{
 		name: 'search_form',
-		class: classes.search_form,
+		className: classes.search_form,
 		events:{
 			// click:()=>console.log('click'),
 			submit:(event:SubmitEvent)=>{
@@ -21,7 +21,7 @@ function searchForm(uuid:string){
 			},
 		}
 	});
-	renderDOM(uuid, block);
+	replaceDOM(uuid, block);
 }
 
 export default searchForm;

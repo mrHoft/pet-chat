@@ -8,10 +8,14 @@ function MainButton({name, onclick}:Params):string {
 	return `<button class="${classes._button}" onclick="${onclick}">${name}</button>`;
 }
 
-export default (options:Params[])=>{
+export default (uuid:string, options:Params[])=>{
 	let out='';
-	options?.forEach(element => {
+	// console.log(uuid,options);
+	options?.forEach((element:Params) => {
 		out+=MainButton(element)+'\n';
 	});
-	return out;
+	const parent=uuid[0]=='.' ? document.querySelector(uuid) : document.getElementById(uuid);
+	if(parent){
+		parent.innerHTML=out;
+	}
 }
