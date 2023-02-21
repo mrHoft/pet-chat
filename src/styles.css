@@ -47,28 +47,39 @@ h2{font-size: 18px;}
 
 #upper_frame, #header_frame, #bottom_frame{
 	display: flex;
+	align-items: center;
 	height: 40px;
 }
 
-#messages_frame{
+#upper_frame, #header_frame{border-bottom: 1px solid $bg_color_main;}
+
+#messages_frame, #chats_frame{
 	height: 100%;
 	display: flex;
 	/* flex-flow: column nowrap; */
 	padding: 5px;
 	flex-direction: column-reverse;
 	font-size: 12px;
-	overflow-y: scroll;
+}
+#chats_frame{
+	height: auto;
+	flex-direction: column;
+}
+
+/* == Scroll == */
+.scrolled{
+	overflow-y: auto;
 	overflow-x: hidden;
 	scrollbar-width: thin;
 	scrollbar-color: $bg_color_panel $bg_color_scroll;
 }
-#messages_frame::-webkit-scrollbar{
+.scrolled::-webkit-scrollbar{
 	width: 10px;
 }
-#messages_frame::-webkit-scrollbar-track{
+.scrolled::-webkit-scrollbar-track{
 	background: $bg_color_panel;
 }
-#messages_frame::-webkit-scrollbar-thumb{
+.scrolled::-webkit-scrollbar-thumb{
 	background-color: $bg_color_scroll;
 	border: 3px solid $bg_color_panel;
 }
@@ -77,10 +88,8 @@ h2{font-size: 18px;}
 	border-top: 1px solid $bg_color_main;
 }
 
-#upper_frame, #header_frame{border-bottom: 1px solid $bg_color_main;}
-
 .message_box{
-	margin-top: 10;
+	/* margin-top: 10; */
 	width: 90%;
 }
 
@@ -91,23 +100,6 @@ h2{font-size: 18px;}
 	border: none;
 	width: 100%;
 	resize: none;
-}
-
-.name{
-	margin-top: 10;
-	margin-left: 18;
-	width: calc(100% - 80px)
-	/* width: 90%; */
-}
-
-.icon{
-	margin-top: 2px;
-	margin-left: 2px;
-	width: 36px;
-	height: 36px;
-	border-radius: 18px;
-	background-color: $bg_color_image;
-	background-image: url("/static/icon-36.svg");
 }
 
 #side_frame{
@@ -199,7 +191,7 @@ input{
 	flex-direction: column;
 }
 
-#login, #signup, #password_change{
+#login, #signup, #password_change, #modal_more, #modal_add_user{
 	background-color: $bg_color_modal;
 	border-radius: 20px;
 	margin-left: auto;
@@ -208,8 +200,13 @@ input{
 	height: 480px;
 	margin-top: calc(50vh - 320px);
 }
-#signup{
-	height: 640px;
+#signup{height: 680px;}
+
+#modal_more, #modal_add_user{
+	z-index: 999;
+	display: none;
+	position: absolute;
+	margin-left: calc(50vw - 180px);
 }
 
 #profile{
@@ -222,17 +219,7 @@ input{
 	margin-top: calc(50vh - 320px);
 }
 
-.avatar{
-	background-color: $bg_color_image;
-	height: 160px;
-	width: 160px;
-	border-radius: 80px;
-	background-image: url("/static/user.svg");
-	background-size: 160px;
-	cursor: pointer;
-}
-
-.avatar_form{
+#form_avatar{
 	position: absolute;
 	top: calc(50vh - 320px + 100px);
 	left: calc(50vw + 400px - 160px - 120px);
@@ -251,8 +238,20 @@ ul{
 	padding: 0;
 }
 
+hr{
+	border: 2px solid gray;
+}
+
+.members{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
 /* == Images ==*/
-#people-24,#people-12{
+#people-24, #people-12{
 	width: 200px;
 	height: 400px;
 	border-style: none;
@@ -261,3 +260,50 @@ ul{
 }
 #people-12{background-image: url("/static/people-12.svg");}
 #people-24{background-image: url("/static/people-24.svg");}
+
+.icon{
+	margin: 2px;
+	width: 36px;
+	height: 36px;
+	border-radius: 18px;
+	background-color: $bg_color_image;
+	background-image: url("/static/icon-36.svg");
+	background-size: 36px;
+}
+
+.avatar, .profile-avatar{
+	border-radius: 50%;
+	background-color: $bg_color_image;
+	background-image: url("/static/user.svg");
+}
+.avatar{
+	margin: 2px;
+	width: 36px;
+	height: 36px;
+	background-size: 36px;
+}
+.profile-avatar{
+	height: 160px;
+	width: 160px;
+	box-shadow: 1px 1px 15px -5px black;
+	background-size: 160px;
+	cursor: pointer;
+}
+
+.users, .user-plus, .user-del, .crown{
+	width: 24px;
+	height: 24px;
+	border-style: none;
+	/* margin-left: 10px; */
+	/* margin-right: 10px; */
+	background-size: 24px;
+	background-repeat: no-repeat;
+	opacity: 0.7;
+}
+.user-plus:hover{opacity: 1;}
+.user-del:hover{opacity: 1;}
+
+.users{background-image: url("/static/users.svg");}
+.user-plus{background-image: url("/static/user-plus.svg"); cursor: pointer;}
+.user-del{background-image: url("/static/user-del.svg"); cursor: pointer;}
+.crown{background-image: url("/static/crown.svg");}

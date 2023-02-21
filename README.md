@@ -10,18 +10,30 @@ Description: Web chat messenger.
 | --- | --- |
 | `npm run start` | Starts local server at 3000 port |
 | `npm run build` | Makes a build |
+| `npm run test` | Runs Mocha tests |
 
 ```markdown
 .
 ├── src
 │   ├── index.html          # Starts from it
-│   ├── modules
-│   │   ├── router.ts       # Resolves url
-│   │   ├── template.ts     # Prepares page content
-│   ├── pages               # Contain page parts
-│   ├── components          # Contain components
+│   ├── app.ts              # Prepares global methods and router
+│   ├── Router              # Resolves url, handles routes
+│   │   ├── routes_data.ts  # Foundation of each page
+│   ├── templator           # Prepares page content
+│   │   ├── pages           # Contain page parts
+│   ├── components
+│   │   ├── Forms           # User forms
+│   │   ├── Chat            # Chat interface components
+│   │   ├── Messages        # Message send/show components
+│   │   ├── Users           # Search/add users components
 │   ├── services
-│   │   ├── block.ts        # Uses by template to include components
+│   │   ├── Component.ts    # Uses by template to include components
+│   │   ├── Store           # Application store
+│   │   │   ├── connect.ts  # Makes High Order Component
+│   │   ├── api             # XMLHttpRequest, WebSocket api
+│   │   │   ├── Manager.ts  # Handles api requests
+│   ├── utils               # Logic and visualisation utils
+├── static                  # Icons and images
 ```
 
 [Deployed example (Netlify)](https://pet-chat.netlify.app)

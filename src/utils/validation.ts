@@ -1,4 +1,4 @@
-import {show_message} from './utils';
+import {showMessage} from './chat_utils';
 
 const Marks={
 	error: '&#9888; ',
@@ -6,7 +6,7 @@ const Marks={
 }
 
 const Messages={
-	'first_name':	'First name is incorrect',
+	'first_name':	'Name is incorrect',
 	'second_name':	'Second name is incorrect',
 	'login':		'Login is incorrect',
 	'email':		'Wrong e-mail',
@@ -17,38 +17,51 @@ const Messages={
 }
 
 const checkName=(value:string)=>(value.length>=3 && value.match(/^[A-Za-zА-Яа-яЁё]+$/));
-const checkLogin=(value:string)=>(value.length>=4 && value.match(/^[A-Za-z0-9_]+$/));
+const checkNickName=(value:string)=>(value.length>=3 && value.match(/^[A-Za-zА-Яа-яЁё0-9_]+\s?[A-Za-zА-Яа-яЁё0-9_]+$/));
+const checkLogin=(value:string)=>(value.length>=3 && value.match(/^[A-Za-z0-9_]+$/));
 const checkEmail=(value:string)=>(value.length!= 0 && value.match(/^[A-Za-z\._\-[0-9]+[@][A-Za-z\._\-[0-9]+[\.][a-z]{2,4}$/));
 const checkPassword=(value:string)=>(value.match(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/));
 const checkPhone=(value:string)=>(value.replace(/\s+/g, '').replace('(', '').replace(')', '').replace('+', '').match(/^[0-9]{11}$/));
 
-function validateName(element:HTMLInputElement | undefined):number {
-	if(!element) return 1;
+function validateName(element:HTMLInputElement | undefined):boolean {
+	if(!element) return false;
 	const err_el=element.nextElementSibling;
 	const value=element.value;
 	if(!checkName(value)) {
-		show_message(err_el, Marks.error+Messages.first_name, 'red');
-		return 1;
+		showMessage(err_el, Marks.error+Messages.first_name, 'red');
+		return false;
 	}
 	// if (!value(/^[A-Za-z]+\s{1}[A-Za-z]+$/)) {}
-	show_message(err_el, Marks.valid, 'green');
-	return 0;
+	showMessage(err_el, Marks.valid, 'green');
+	return true;
 }
 
-function validateLogin(element:HTMLInputElement | undefined):number {
-	if(!element) return 1;
+function validateNickName(element:HTMLInputElement | undefined):boolean {
+	if(!element) return false;
 	const err_el=element.nextElementSibling;
 	const value=element.value;
-	if(value.length<4){
-		show_message(err_el, Marks.error+'Minimum four characters', 'red');
-		return 1;
+	if(!checkNickName(value)) {
+		showMessage(err_el, Marks.error+Messages.display_name, 'red');
+		return false;
+	}
+	showMessage(err_el, Marks.valid, 'green');
+	return true;
+}
+
+function validateLogin(element:HTMLInputElement | undefined):boolean {
+	if(!element) return false;
+	const err_el=element.nextElementSibling;
+	const value=element.value;
+	if(value.length<3){
+		showMessage(err_el, Marks.error+'Minimum three characters', 'red');
+		return false;
 	}
 	if(!checkLogin(value)){
-		show_message(err_el, Marks.error+'Wrong characters', 'red');
-		return 1;
+		showMessage(err_el, Marks.error+'Wrong characters', 'red');
+		return false;
 	}
-	show_message(err_el, Marks.valid, 'green');
-	return 0;
+	showMessage(err_el, Marks.valid, 'green');
+	return true;
 }
 
 function validateEmail(element:HTMLInputElement | undefined):number {
@@ -56,10 +69,10 @@ function validateEmail(element:HTMLInputElement | undefined):number {
 	const err_el=element.nextElementSibling;
 	const value=element.value;
 	if(!checkEmail(value)) {
-		show_message(err_el, Marks.error+Messages.email, 'red');
+		showMessage(err_el, Marks.error+Messages.email, 'red');
 		return 1;
 	}
-	show_message(err_el, Marks.valid, 'green');
+	showMessage(err_el, Marks.valid, 'green');
 	return 0;
 }
 
@@ -68,14 +81,14 @@ function validatePassword(element:HTMLInputElement | undefined):number {
 	const err_el=element.nextElementSibling;
 	const value=element.value;
 	if(value.length<8) {
-		show_message(err_el, Marks.error+'Minimum eight characters', 'red');
+		showMessage(err_el, Marks.error+'Minimum eight characters', 'red');
 		return 1;
 	}
 	if(!checkPassword(value)) {	//Minimum eight characters, at least one letter and one number
-		show_message(err_el, Marks.error+'At least one letter and one number', 'red');
+		showMessage(err_el, Marks.error+'At least one letter and one number', 'red');
 		return 1;
 	}
-	show_message(err_el, Marks.valid, 'green');
+	showMessage(err_el, Marks.valid, 'green');
 	return 0;
 }
 
@@ -85,10 +98,10 @@ function validatePassword2(element:HTMLInputElement | undefined):number {
 	const password=element.previousElementSibling?.previousElementSibling as HTMLInputElement;
 	const value=element.value;
 	if(!(password && value.length>=8 && value===password.value)) {
-		show_message(err_el, Marks.error+Messages['psw-repeat'], 'red');
+		showMessage(err_el, Marks.error+Messages['psw-repeat'], 'red');
 		return 1;
 	}
-	show_message(err_el, Marks.valid, 'green');
+	showMessage(err_el, Marks.valid, 'green');
 	return 0;
 }
 
@@ -98,13 +111,13 @@ function validatePhone(element:HTMLInputElement | undefined):number {
 	let value=element.value;
 	value=value.replace(/\s+/g, '').replace('(', '').replace(')', '').replace('+', '');
 	if(!value.match(/^[0-9]{11}$/)) {
-		show_message(err_el, Marks.error+'Wrong phone number', 'red');
+		showMessage(err_el, Marks.error+'Wrong phone number', 'red');
 		return 1;
 	}
 	if(element && value.length>4 && value.match(/^[0-9]*$/)) {
 		element.value='+'+value.charAt(0)+'('+value.substring(1,4)+')'+ (value.length<8 && value.substring(4) || value.substring(4,7)+' '+(value.length<10 && value.substring(7) || value.substring(7,9)+' '+value.substring(9)));
 	}
-	show_message(err_el, Marks.valid, 'green');
+	showMessage(err_el, Marks.valid, 'green');
 	return 0;
 }
 
@@ -124,13 +137,15 @@ function validateFields(data:any) {
 	if(!checkLogin(data['login'] || '')) return Messages['login'];
 	if(!checkEmail(data['email'] || '')) return Messages['email'];
 	if(!checkPhone(data['phone'] || '')) return Messages['phone'];
-	if(data['display_name']!='' && !checkName(data['display_name'] || '')) return Messages['display_name'];
+	if(data['display_name']!='' && !checkNickName(data['display_name'] || '')) return Messages['display_name'];
 	return '';
 }
 
 function validateSecurityFields(data:any) {
-	if(!checkPassword(data['password'] || '')) return Messages['password'];
-	if(data['password']!=data['psw-repeat']) return Messages['psw-repeat'];
+	let password=data['password'] || data['oldPassword'] || '';
+	if(!checkPassword(password)) return Messages['password'];
+	password=data['password'] || data['newPassword'] || '';
+	if(password!=data['psw-repeat']) return Messages['psw-repeat'];
 	return '';
 }
 
@@ -147,30 +162,18 @@ function callback_validate(event:FocusEvent){
 	if(target.name=='') return false;
 	console.log(target.name);
 	switch(target.name){
-		case 'first_name':
-			validateName(target);
-			break;
-		case 'second_name':
-			validateName(target);
-			break;
-		case 'login':
-			validateLogin(target);
-			break;
-		case 'email':
-			validateEmail(target);
-			break;
-		case 'phone':
-			validatePhone(target);
-			break;
-		case 'password':
-			validatePassword(target);
-			break;
-		case 'psw-repeat':
-			validatePassword2(target);
-			break;
-		default:
-			console.log('Unexpected error');
+		case 'first_name': validateName(target); break;
+		case 'second_name': validateName(target); break;
+		case 'login': validateLogin(target); break;
+		case 'email': validateEmail(target); break;
+		case 'phone': validatePhone(target); break;
+		case 'password': validatePassword(target); break;
+		case 'oldPassword': validatePassword(target); break;
+		case 'newPassword': validatePassword(target); break;
+		case 'psw-repeat': validatePassword2(target); break;
+		case 'display_name': validateNickName(target); break;
+		default: console.log('Unexpected error');
 	}
 }
 
-export {callback_validate, validateMessage, validateFields, validateSecurityFields, validateLoginFields};
+export {callback_validate, validateMessage, validateFields, validateSecurityFields, validateLoginFields, validateLogin, validateNickName};
