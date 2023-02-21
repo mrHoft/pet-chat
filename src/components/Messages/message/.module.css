@@ -1,0 +1,21 @@
+.message_out{
+	background-color: #1E2D41;
+	padding: 10px;
+	border-radius: 20px 20px 0;
+	margin-left: auto;
+	margin-right: 0;
+	margin-top: 2px;
+	overflow-wrap: break-word;
+	flex-wrap: wrap;
+}
+
+.message_in{
+	background-color: #1E2D41;
+	padding: 10px;
+	border-radius: 20px 20px 20px 0;
+	margin-left: 0;
+	margin-right: auto;
+	margin-top: 2px;
+	overflow-wrap: break-word;
+	flex-wrap: wrap;
+}

@@ -1,0 +1,16 @@
+.trash{
+	margin-top: -24px;
+	margin-right: 10px;
+	margin-left: auto;
+	width: 24px;
+	height: 24px;
+	border-style: none;
+	/* background-color: rgba(0, 0, 0, 0); */
+	background-repeat: no-repeat;
+	opacity: 0.7;
+	background-image: url("/static/trash.svg");
+	background-size: 24px;
+	cursor: pointer;
+}
+
+.trash:hover{opacity: 1;}

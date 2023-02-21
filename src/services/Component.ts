@@ -1,4 +1,4 @@
-import EventBus from './event-bus';
+import EventBus from './EventBus';
 
 class Component<Props extends Record<string, any>={}> {
 	static EVENTS = {
@@ -13,7 +13,7 @@ class Component<Props extends Record<string, any>={}> {
 	private _meta:{tagName:string, props:Props};
 	private eventBus:() => EventBus;
 
-	constructor(tagName: string = "div", props:Props) {
+	constructor(tagName:string = "div", props:Props) {
 		const eventBus = new EventBus();
 		this._meta = {
 			tagName,
@@ -97,9 +97,11 @@ class Component<Props extends Record<string, any>={}> {
 		else this._element!.appendChild(component);
 
 		if(this.props.className) this._element!.className=this.props.className as string;
+		if(this.props.id) this._element!.id=this.props.id as string;
 		if(this._element instanceof HTMLDivElement){
 			if(this.props.contentEditable) this._element!.contentEditable=this.props.contentEditable as string;
 			if(this.props.autofocus) this._element!.autofocus=this.props.autofocus as boolean;
+			if(this.props.placeholder) this._element!.setAttribute('data-placeholder', this.props.placeholder as string);
 		}		
 		if(this._element instanceof HTMLTextAreaElement){	//Changed to div in this project
 			if(this.props.rows) this._element!.rows=this.props.rows as number;
@@ -110,8 +112,9 @@ class Component<Props extends Record<string, any>={}> {
 			if(this.props.type) this._element!.type=this.props.type as string;
 			if(this.props.placeholder) this._element!.placeholder=this.props.placeholder as string;
 		}
+		
 		this._addEvents();
-		console.log('Rendered', this._meta.tagName, this.props.name);
+		console.log('Rendered', this._meta.tagName, this.props.name || this.props.id);
 	}
 
 	// Может переопределять пользователь

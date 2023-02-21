@@ -1,0 +1,16 @@
+.textbox{
+	background: none;
+	outline: none;
+	color: #FFF;
+	border: none;
+	width: 100%;
+	resize: none;
+	overflow: hidden;
+	height: 14px;
+	font-size: 12px;
+}
+
+.textbox:empty:before{
+	content: attr(data-placeholder);
+	color: gray;
+}

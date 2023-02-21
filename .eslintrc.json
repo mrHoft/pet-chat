@@ -1,13 +1,10 @@
 {
 	"extends": [
-		"airbnb",
+		"airbnb-typescript",
 		"standard-with-typescript"
 	],
-	"parser": "@typescript-eslint/parser",
 	"plugins": ["@typescript-eslint"],
 	"rules": {
-		"no-constructor-return": "off",
-		"no-use-before-define": "off",
 		"no-unused-vars": 2,
 		"max-len": [1, 100],
 		"max-params": [2, 3],
