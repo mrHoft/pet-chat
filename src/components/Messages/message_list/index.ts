@@ -3,7 +3,7 @@ import Store		from '../../../services/Store/Store';
 import connect		from '../../../services/Store/connect';
 import {replaceDOM}	from '../../../services/render-dom';
 import { TMessage } from '../../../services/api/types';
-import message		from '../message';
+import message		from '../message_node';
 // import * as classes from './.module.css';
 
 const store=new Store();
@@ -27,7 +27,7 @@ function messages_frame(uuid:string, props:Record<string, any>={}):void{
 		// events:	{click:()=>props['onclick'] ? props['onclick']() : window.open('/', '_self')}
 	});
 	replaceDOM(uuid, messages_frame);
-	// renderMessages();
+	renderMessages();
 }
 
 function renderMessages(){

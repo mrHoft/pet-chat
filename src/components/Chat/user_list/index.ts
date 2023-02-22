@@ -4,7 +4,8 @@ import {replaceDOM}	from '../../../services/render-dom';
 import {TUser}	from '../../../services/api/types';
 import {Manager}	from '../../../services/api/Manager';
 import Store		from '../../../services/Store/Store';
-// import * as classes from './.module.css';
+import { merge, setValue } from '../../../utils/base_utils';
+import * as classes from './.module.css';
 import userNode		from '../user_node';
 
 const store=new Store();
@@ -26,7 +27,7 @@ function chatUsers(uuid:string, props:Indexed={}):void{
 	const frame=new HOC('div',<DetailsProps>{
 		id:		'chat_users',
 		update:	updateChatUsers,
-		className: 'scrolled',
+		className: classes.chat_details+' scrolled',
 /*
  		events:	{
 			click:()=>{
@@ -48,11 +49,13 @@ function updateChatUsers(){
 	console.log('...Update chat users');
 	let container:HTMLElement | null=document.getElementById('chat_users');
 	const data:[]=mapChatUsersToProps(store.getState());
+	const newUsers={};
 	if(container && data){
 		container.innerHTML='';
 		const list=document.createElement('ul');
 		Object.values(data).forEach((value: TUser)=>{
-			store.set('known_users.'+value.id, value);
+			setValue(newUsers, String(value.id), value);
+
 			const list_el=document.createElement('li');
 			const node=userNode(value);
 			list_el.appendChild(node);
@@ -60,6 +63,9 @@ function updateChatUsers(){
 		});
 		container.appendChild(list);
 	}
+	//Add new users (to know them by id)
+	const known_users=store.getState().known_users;
+	store.set('known_users', known_users ? merge(known_users, newUsers) : newUsers);
 	// console.log(store.getState().known_users);
 }
 

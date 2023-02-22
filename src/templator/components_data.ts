@@ -26,7 +26,7 @@ import form_profile	from '../components/Forms/form_profile';
 import form_password from '../components/Forms/form_password';
 import form_avatar from '../components/Forms/form_avatar';
 import message_box	from '../components/Messages/message_box';
-import messages_frame from '../components/Messages/messages_frame';
+import messages_frame from '../components/Messages/message_list';
 import chats_frame from '../components/Chat/chat_list';
 import chat_header from '../components/Chat/header';
 import chat_details from '../components/Chat/details';

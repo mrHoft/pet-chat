@@ -41,10 +41,10 @@ class Route{
 
 class Router{
 	private		history:History=window.history
-				routes:Route[]=[];
+	private		routes:Route[]=[];
 	protected	_currentRoute:Route | null=null
-				_rootQuery:string
-				__instance:Router;
+	protected	_rootQuery:string
+	protected static _instance:Router;
 
 	private constructor(rootQuery:string){
 		this.routes=[];
@@ -54,8 +54,9 @@ class Router{
 	}
 
 	public static get(rootQuery:string){
-		if (Router.__instance) return Router.__instance;
-		return Router.__instance=new Router(rootQuery);
+		if (Router._instance)
+			return Router._instance;
+		return Router._instance=new Router(rootQuery);
 	}
 
 	public use(pathname:string, page:Function){
