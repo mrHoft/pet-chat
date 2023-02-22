@@ -1,5 +1,6 @@
 import EventBus from '../EventBus';
 import {setValue, addValue} from '../../utils/base_utils';
+// console.log(JSON.parse(localStorage.getItem('myAppStore')));
 
 class Store extends EventBus {
 	static EVENT_UPDATE:string = 'Update';

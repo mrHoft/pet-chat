@@ -5,6 +5,7 @@ import {Manager}	from '../../../services/api/Manager';
 import Store		from '../../../services/Store/Store';
 
 const store=new Store();
+const manager=new Manager();
 
 type ButtonProps={
 	name:string,
@@ -18,10 +19,7 @@ function chatDelete(uuid:string, props:Record<string, any>={}):void{
 		name: 'chat_delete',
 		className: classes.trash,
 		events:{
-			click:()=>{
-				const manager=new Manager();
-				manager.deleteChat(store.getState().active_chat);
-			}
+			click:()=>manager.deleteChat(store.getState().active_chat.chatId)
 		}
 	});
 	replaceDOM(uuid, button);

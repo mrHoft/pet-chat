@@ -10,18 +10,18 @@ function showMessage(element:Element | null, text: string='', color='red'){
 	element.style.color=color;
 }
 
-function timedMessage(element:Element | null, text:string):void{
+function timedMessage(element:Element | null, text:string, color='red'):void{
 	if(element){
-		showMessage(element, text, 'red');
+		showMessage(element, text, color);
 		setTimeout(function(){showMessage(element)}, 3000);
 	}
 }
 
-function formMessage(element:Element | null, text:string):void{
+function formMessage(element:Element | null, text:string, color='red'):void{
 	if(element){
 		const collection:HTMLCollection=element.getElementsByClassName("err");
 		const err_el=collection.item(collection.length-1) as HTMLElement;
-		timedMessage(err_el, text);
+		timedMessage(err_el, text, color);
 	}
 }
 

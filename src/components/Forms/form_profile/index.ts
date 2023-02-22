@@ -33,7 +33,7 @@ function profileForm(uuid:string){
 }
 
 function renderUser(){
-	console.log('Render User');
+	console.log('...Update user profile');
 	const userData=mapUserToProps(store.getState());
 	if(userData){
 		if(!userData.display_name) userData.display_name=userData.first_name+' '+userData.second_name;
@@ -49,8 +49,8 @@ function renderUser(){
 			});
 		}
 		if(userData.avatar){
-			const avatar=document.querySelector('.avatar') as HTMLDivElement;
-			if(avatar) avatar.style.backgroundImage=`url("https://ya-praktikum.tech/api/v2/resources${userData.avatar}")`;
+			const avatar_el=document.querySelector('.profile-avatar') as HTMLDivElement;
+			if(avatar_el) avatar_el.style.backgroundImage=`url("https://ya-praktikum.tech/api/v2/resources${userData.avatar}")`;
 		}
 	}
 }

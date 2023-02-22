@@ -16,20 +16,20 @@ async function prepareNewChat(chatId:number | undefined):Promise<void>{
 
 function startChatChangeListener() {
 	const cur:ChatToken=store.getState().active_chat;
-	if(cur){
-		let chatId:number | undefined=cur.chatId;
+	let chatId:number | undefined=cur ? cur.chatId : undefined;
 
-		store.on(Store.EVENT_UPDATE, () => {
-			const cur:ChatToken=store.getState().active_chat;
-			const id=cur.chatId;
-			if (id && chatId!=id){
-				chatId=id;
+	store.on(Store.EVENT_UPDATE, () => {
+		const cur:ChatToken=store.getState().active_chat;
+		if(cur){
+			if (cur.chatId && chatId!=cur.chatId){
+				// console.log(chatId, cur.chatId);
+				chatId=cur.chatId;
 				prepareNewChat(chatId);
 			}
-		});
+		}
+	});
 
-		prepareNewChat(chatId);
-	}
+	prepareNewChat(chatId);
 }
 
 export default startChatChangeListener;

@@ -53,7 +53,6 @@ function chatDetails(uuid:string, props:Indexed={}):void{
 						form.append('avatar', file);
 						form.append('chatId', String(id));
 						const err_el=target.nextElementSibling;
-						console.log(index);
 						manager.updateChatAvatar(form, index, err_el);
 					}
 				}

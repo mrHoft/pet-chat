@@ -2,6 +2,7 @@
 import Component from '../../../services/Component';
 import Store		from '../../../services/Store/Store';
 import {TChatInfo} from '../../../services/api/types';
+import { timeDiff } from '../../../utils/date_utils';
 import * as classes from './.module.css';
 
 const store=new Store();
@@ -34,9 +35,9 @@ function chatNode(data:TChatInfo){
 
 	const time_el:HTMLDivElement=document.createElement("div");
 	let time:string='';
-	if(last_message) time=(new Date(last_message.time)).toLocaleDateString();
-	time=time.replace(/\//g, '.');
-	time_el.textContent=time;
+	if(last_message) time=last_message.time;
+	// time=(new Date(time)).toLocaleDateString(); time=time.replace(/\//g, '.');
+	time_el.textContent=time ? timeDiff(time) : '';
 	div_el.appendChild(time_el);
 /* 
 	const opt_el:HTMLDivElement=document.createElement("div");

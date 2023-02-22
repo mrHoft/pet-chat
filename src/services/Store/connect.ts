@@ -17,7 +17,7 @@ function connect(component: typeof Component, mapStateToProps: (state: Indexed) 
 				// при обновлении получаем новое состояние
 				const newState=mapStateToProps(store.getState());
 				// вызываем обновление компонента, передав данные из хранилища
-				if (!oldState || (newState && !isEqual(oldState, newState))){
+				if (newState && (!oldState || !isEqual(oldState, newState))){
 					// this.setProps({state: {...mapStateToProps(store.getState())}});
 					// сохраняем новое состояние
 					oldState=cloneDeep(newState);

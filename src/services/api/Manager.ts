@@ -39,16 +39,25 @@ export class Manager{
 		}
 	}
  */
-	public async signin(data:TSignIn){
+	private async resolveResponse(response:string):Promise<Indexed>{
+		return new Promise(function(resolve){
+			if(response[0]=='[' || response[0]=='{')
+				resolve(JSON.parse(response));
+			resolve({reason: response});
+		});
+	}
+
+	public async signin(data:TSignIn, err_el:Element | null){
 		let status=500;
 		this.Auth.signin(data)
 		.then(res=>{
 			status=res.status;
-			return status==200 ? {reason:'Authorized!'} : JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
-		.then(res=>{
-			console.warn('Sign in:', status, res.reason);
+		.then(data=>{
+			console.warn('API Sign in:', status, data.reason);
 			if(status==200 || status==400) this.getUser();
+			else formMessage(err_el, data.reason);
 		})
 		.catch(err=>{console.warn(err)});
 	}
@@ -58,10 +67,10 @@ export class Manager{
 		this.Auth.signup(data)
 		.then(res=>{
 			status=res.status;
-			return JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
 		.then(res=>{
-			console.warn('Sign up:',status, res.reason);
+			console.warn('API Sign up:', status, res.reason);
 			// timedMessage(element, res.reason);
 			// this.resolveStatus(status);
 			if(status==200){
@@ -77,10 +86,10 @@ export class Manager{
 		this.Auth.getUser()
 		.then(res=>{
 			status=res.status;
-			return JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
 		.then(res=>{
-			console.warn('Get user:', status, res);
+			console.warn('API Get user:', status, res);
 			// if(!res.display_name) res.display_name=res.first_name+' '+res.second_name;
 			this.store.set('user', res);
 			window.router.go("/");
@@ -99,11 +108,11 @@ export class Manager{
 		this.User.updateAvatar(data)
 		.then(res=>{
 			status=res.status;
-			return JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
-		.then(res=>{
-			console.warn('Update avatar:', status, res);
-			if(status==200) this.store.set('user', res); else timedMessage(err_el, 'Error');
+		.then(data=>{
+			console.warn('API Update avatar:', status, data);
+			if(status==200) this.store.set('user', data); else timedMessage(err_el, data.reason);
 		})
 		.catch((err)=>{console.warn(err)});
 	}
@@ -115,8 +124,19 @@ export class Manager{
 	}
 
 	public async updateProfile(data:TProfile, err_el:Element | null){
+		let status=500;
 		this.User.updateProfile(data)
-		.then(res=>{if(res.status==200) formMessage(err_el, 'Profile updated'); else formMessage(err_el, 'Error');})
+		.then(res=>{
+			status=res.status;
+			return this.resolveResponse(res.response);
+		})
+		.then(data=>{
+			console.warn('API Update profile:', status, data.response);
+			if(status==200){
+				this.store.set('user', data);
+				formMessage(err_el, 'Profile updated', 'green');
+			 }else formMessage(err_el, String(data.response));
+		})
 		.catch((err)=>{console.warn(err)});
 	}
 
@@ -125,13 +145,12 @@ export class Manager{
 		this.Chat.getChatsInfo()
 		.then(res=>{
 			status=res.status;
-			return JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
 		.then(res=>{
+			console.warn('API Chats:', status, res);
 			if(status==200){
-				console.warn('Chats: ', res);
 				this.store.set('chats', res);
-				// window.router.go("/");
 			}
 			if(status==401){	//Unauthorized
 				window.router.go("/login");
@@ -145,10 +164,10 @@ export class Manager{
 		this.Chat.createChat(data)
 		.then(res=>{
 			status=res.status;
-			return JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
 		.then(res=>{
-			console.warn('Create chat:', status, res.reason);
+			console.warn('API Create chat:', status, res.reason);
 			if(status==200){
 				document.getElementById('modal_more')!.style.display='none';
 				this.getChatsInfo();
@@ -163,12 +182,13 @@ export class Manager{
 		this.Chat.updateChatAvatar(data)
 		.then(res=>{
 			status=res.status;
-			return JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
-		.then(res=>{
-			console.warn('Update chat avatar:', status, res);
+		.then(data=>{
+			console.warn('API Update chat avatar:', status, data);
 			if(status==200)
-				this.getChatsInfo();	//this.store.set('chats.'+index, res);
+				// this.getChatsInfo();
+				this.store.set(`chats.${index}.avatar`, data.avatar);
 			else
 				timedMessage(err_el, 'Error');
 		})
@@ -180,12 +200,15 @@ export class Manager{
 		this.Chat.deleteChat({chatId: id})
 		.then(res=>{
 			status=res.status;
-			return JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
 		.then(res=>{
-			console.warn('Delete request: ', status, res);
+			console.warn('API Delete request:', status, res);
 			if(status==200){
 				this.getChatsInfo();
+				this.store.set('messages', []);
+				this.store.set('chat_users', []);
+				this.store.set('active_chat', []);
 			}
 		})
 		.catch((err)=>{console.warn(err)});
@@ -196,10 +219,10 @@ export class Manager{
 		this.Chat.getUsers({id: chatId})
 		.then(res=>{
 			status=res.status;
-			return JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
 		.then(res=>{
-			console.warn('Chat users: ', status, res);
+			console.warn('API Chat users:', status, res);
 			if(status==200)
 				this.store.set('chat_users', res);
 			else
@@ -213,10 +236,10 @@ export class Manager{
 		this.User.searchUsers({login: name})
 		.then(res=>{
 			status=res.status;
-			return JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
 		.then(res=>{
-			console.warn('Search users: ', status, res);
+			console.warn('API Search users:', status, res);
 			if(status==200)
 				this.store.set('search_users', res);
 			else
@@ -230,10 +253,10 @@ export class Manager{
 		this.Chat.addUsers(data)
 		.then(res=>{
 			status=res.status;
-			return status==200 ? 'Done' : JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
 		.then(res=>{
-			console.warn('Add users: ', status, res);
+			console.warn('API Add users:', status, res);
 			if(status==200){
 				this.getUsers(data.chatId);
 			}
@@ -246,10 +269,10 @@ export class Manager{
 		this.Chat.removeUsers(data)
 		.then(res=>{
 			status=res.status;
-			return status==200 ? 'Done' : JSON.parse(res.response);
+			return this.resolveResponse(res.response);
 		})
 		.then(res=>{
-			console.warn('Remove users: ', status, res);
+			console.warn('API Remove users:', status, res);
 			if(status==200){
 				this.getUsers(data.chatId);
 			}
@@ -262,19 +285,19 @@ export class Manager{
 		return new Promise(function(resolve) {
 			let status=500;
 			self.Chat.getToken(chatId)
-			.then((res:any)=>{
+			.then((res)=>{
 				status=res.status;
-				return JSON.parse(res.response);
+				return self.resolveResponse(res.response);
 			})
-			.then((data:any)=>{
-				console.warn('Chat token request: ', status, status!=200 ? data : '');
+			.then((data:Indexed)=>{
+				console.warn('API Chat token:', status, status!=200 ? data : '');
 				if(status==200){
 					self.store.set('active_chat.token', data.token);
 					resolve(data.token);
 				}
 				resolve('');
 			})
-			.catch((err:any)=>{console.warn(err); resolve('');});
+			.catch((err)=>{console.warn(err); resolve('');});
 		});
 	}
 }
