@@ -1,0 +1,13 @@
+<div id="modal_add_user">
+	{{{close_button}}}
+	<h1>Add user</h1>
+	<nav class="selector">
+		<form id="form_search_user" action="#" onsubmit="return window.searchUser(this);">
+			<input type="text" class="main_inputbox" placeholder="User name*" name="search_name" required>
+			<label for="search_name" class="err">Error</label>
+			<button type="submit" class="main_button">Search user</button>
+		</form>
+		<br>
+		{{{add_user_list}}}
+	</nav>
+</div>

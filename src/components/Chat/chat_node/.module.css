@@ -1,0 +1,41 @@
+.chat_node{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 5px;
+	width: 300px;
+	cursor: pointer;
+}
+
+.chat_node:hover{
+	background-color: #2B5278;
+}
+
+.chat_node .info{
+	display: flex;
+	justify-content: space-between;
+	margin-left: 10px;
+	width: calc(320px - 30px - 40px - 38px);
+}
+
+.chat_node .count{
+	width: 18px;
+	height: 18px;
+	background-color: gray;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: 10px;
+}
+
+.chat_node .del{
+	width: 18px;
+	height: 18px;
+	background-color: #2B5278;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* margin-left: 10px; */
+}

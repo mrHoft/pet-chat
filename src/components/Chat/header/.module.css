@@ -1,0 +1,12 @@
+.chat_header{
+	display: flex;
+	align-items: center;
+	height: 40px;
+	width: 100%;
+}
+
+.chat_header .name{
+	/* margin-top: 10; */
+	margin-left: 18;
+	/* width: calc(100% - 80px - 18px); */
+}

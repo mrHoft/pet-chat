@@ -1,0 +1,13 @@
+<div id="modal_more">
+	{{{close_button}}}
+	<h1>Chat options</h1>
+	<nav class="selector">
+		<form id="form_create_chat" action="#" onsubmit="return window.newChat(this);">
+			<input type="text" class="main_inputbox" placeholder="Chat name*" name="title" required>
+			<label for="title" class="err">Error</label>
+			<button type="submit" class="main_button">Create chat</button>
+		</form>
+		<br>
+		{{{buttons}}}
+	</nav>
+</div>

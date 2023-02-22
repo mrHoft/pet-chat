@@ -1,0 +1,25 @@
+.chat_details{
+	display: flex;
+	max-height: 360px;
+	/* width: 100%; */
+	/* border-bottom: 1px solid #0E1420; */
+	/* padding-bottom: 10px; */
+}
+
+.chat_details .name{
+	/* margin-top: 10; */
+	margin-left: 18;
+	/* width: calc(100% - 80px - 18px); */
+}
+
+.chat_details .icon{
+	/* margin-top: 2px; */
+	margin-left: 10px;
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	background-color: gray;
+	background-image: url("/static/icon-36.svg");
+	background-size: 80px;
+	cursor: pointer;
+}
