@@ -1,16 +1,17 @@
 import Store		from './Store';
 // import {isEqual, cloneDeep}	from '../../utils/base_utils';
-import { ChatToken } from '../api/types';
-import { Manager } from '../api/Manager';
+import {ChatToken}	from '../api/types';
+import Manager		from '../api/Manager';
 import newWebSocket from '../api/socket';
+
 const store=new Store();
 
 async function prepareNewChat(chatId:number | undefined):Promise<void>{
 	if(chatId){
 		const manager=new Manager();
-		manager.getUsers(chatId);						//Chat users update request
-		await manager.getToken(chatId)					//WebSocket token request
-		.then(token=>newWebSocket(chatId, token));		//Connect WebSocket to current chat
+		manager.getChatUsers(chatId);						// Chat users update request
+		await manager.getToken(chatId)					// WebSocket token request
+		.then((token)=>newWebSocket(chatId, token));		// Connect WebSocket to current chat
 	}
 }
 

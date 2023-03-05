@@ -1,6 +1,6 @@
 import Component from '../../../services/Component';
 import {replaceDOM} from '../../../services/render-dom';
-import * as classes from './.module.css';
+import classes from './.module.css';
 
 type ButtonProps={
 	name:string,
@@ -11,7 +11,7 @@ type ButtonProps={
 
 class CloseButton extends Component<ButtonProps>{
 	constructor(props:ButtonProps) {
-		super("button", props);
+		super('button', props);
 	}
 
 	render():string {
@@ -25,8 +25,8 @@ function closeButton(uuid:string, props:Record<string, any>={}):void{
 		text: '&times;',
 		className: classes.close_button,
 		events:{
-			click:()=>props['onclick'] ? props['onclick']() : window.router.go('/')
-		}
+			click:()=>(props['onclick'] ? props['onclick']() : window.router.go('/')),
+		},
 	});
 	replaceDOM(uuid, button);
 }

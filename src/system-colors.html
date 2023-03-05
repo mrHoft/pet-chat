@@ -1,0 +1,270 @@
+<!DOCTYPE	html>
+<html	lang="en">
+<head>
+	<!--	Title	-->
+	<title>Simple	Page</title>
+	<style>
+	:root{
+		color-scheme: light dark;
+		--color_bg:Window;
+		--color_text: WindowText;
+	}
+	body{
+		background-color: rgb(var(--color_rgb) / 0.5);
+	}
+	dl{
+		display:	grid;
+		grid-template-columns:	1fr	7em;
+		grid-gap:	0.5em;
+		font-family:	monospace;
+	}
+	
+	dl dd{
+		display:	flex;
+		align-items:	center;
+		justify-content:	space-between;
+		margin:	0;
+	}
+	
+	dl dd .colorBox{
+		display:	inline-block;
+		width:	1.5em;
+		height:	1.5em;
+		border:	1px	solid	#555;
+	}
+	</style>
+</head>
+<body>
+	<main>
+	<div><div class="wrapper">
+		<dl>
+			<dt>Field</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	Field;"></span>
+			</dd>
+	
+			<dt>FieldText</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	FieldText;"></span>
+			</dd>
+
+			<dt>ActiveBorder</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ActiveBorder;"></span>
+			</dd>
+
+			<dt>ActiveCaption</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ActiveCaption;"></span>
+			</dd>
+
+			<dt>AppWorkspace</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	AppWorkspace;"></span>
+			</dd>
+
+			<dt>Background</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	Background;"></span>
+			</dd>
+
+			<dt>ButtonFace</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ButtonFace;"></span>
+			</dd>
+
+			<dt>ButtonHighlight</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ButtonHighlight;"></span>
+			</dd>
+
+			<dt>ButtonShadow</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ButtonShadow;"></span>
+			</dd>
+
+			<dt>ButtonText</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ButtonText;"></span>
+			</dd>
+
+			<dt>CaptionText</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	CaptionText;"></span>
+			</dd>
+
+			<dt>GrayText</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	GrayText;"></span>
+			</dd>
+
+			<dt>Highlight</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	Highlight;"></span>
+			</dd>
+
+			<dt>HighlightText</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	HighlightText;"></span>
+			</dd>
+
+			<dt>InactiveBorder</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	InactiveBorder;"></span>
+			</dd>
+
+			<dt>InactiveCaption</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	InactiveCaption;"></span>
+			</dd>
+
+			<dt>InactiveCaptionText</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	InactiveCaptionText;"></span>
+			</dd>
+
+			<dt>InfoBackground</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	InfoBackground;"></span>
+			</dd>
+
+			<dt>InfoText</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	InfoText;"></span>
+			</dd>
+
+			<dt>Menu</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	Menu;"></span>
+			</dd>
+
+			<dt>MenuText</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	MenuText;"></span>
+			</dd>
+
+			<dt>Scrollbar</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	Scrollbar;"></span>
+			</dd>
+<!-- 
+			<dt>ThreeDDarkShadow</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ThreeDDarkShadow;"></span>
+			</dd>
+
+			<dt>ThreeDFace</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ThreeDFace;"></span>
+			</dd>
+
+			<dt>ThreeDHighlight</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ThreeDHighlight;"></span>
+			</dd>
+
+			<dt>ThreeDLightShadow</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ThreeDLightShadow;"></span>
+			</dd>
+
+			<dt>ThreeDShadow</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	ThreeDShadow;"></span>
+			</dd>
+ -->
+			<dt>Window</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	Window;"></span>
+			</dd>
+
+			<dt>WindowFrame</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	WindowFrame;"></span>
+			</dd>
+
+			<dt>WindowText</dt>
+			<dd>
+				<span class="colorText"></span>
+				<span class="colorBox"	style="background-color:	WindowText;"></span>
+			</dd>
+		</dl>
+		</div></div>
+	</main>
+<script>
+	function rgbToHex(r, g, b){
+		function decimalToHex(dec){
+			var hex = Number(dec).toString(16);
+			if (hex.length < 2){
+			hex = '0' + hex;
+			}
+			return hex;
+		}
+
+		var red = decimalToHex(r);
+		var green = decimalToHex(g);
+		var blue = decimalToHex(b);
+		return `#${red}${green}${blue}`;
+	}
+
+	function updateColors(){
+		[...document.querySelectorAll('dd')].forEach((dd) =>{
+		const [, red, blue, green] = window
+			.getComputedStyle(dd.querySelector('.colorBox'))
+			.backgroundColor.match(
+			/rgba?\((\d+),\s(\d+),\s(\d+)(?:,\s\d(?:\.?\d+)?\))?/
+			);
+
+		const colorText = dd.querySelector('.colorText');
+		colorText.textContent = rgbToHex(red, blue, green);
+		});
+	}
+
+	const r = document.querySelector(':root');
+
+	function myFunction_get() {
+		const rs = getComputedStyle(r);
+		const value=rs.getPropertyValue('--color_bg')
+		console.log('The variable value is:' + value);
+	}
+
+	function myFunction_set() {
+		r.style.setProperty('--blue', 'lightblue');
+	}
+
+	window.addEventListener('load', ()=>{
+		myFunction_get();
+		updateColors();
+	});
+</script>
+</body>
+</html>

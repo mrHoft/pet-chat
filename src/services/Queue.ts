@@ -6,7 +6,9 @@ type El={
 
 class Queue{
 	private size:number=0;
+
 	private head:El=null;
+
 	private tail:El=null;
 
 	constructor(){
@@ -25,21 +27,20 @@ class Queue{
 
 		return ++this.size;
 	}
-		
+
 	dequeue(){
 		if(this.size==0) throw new Error('Queue is empty');
 		const node=this.head;
 		const next=this.head?.next;
-		if(next){next.prev=null; this.head=next;}
-		else this.tail=this.head=null;
+		if(next){ next.prev=null; this.head=next; } else this.tail=this.head=null;
 		--this.size;
 		return node;
 	}
-		
+
 	peek(){
 		return this.head;
 	}
-		
+
 	isEmpty(){
 		return this.size==0;
 	}

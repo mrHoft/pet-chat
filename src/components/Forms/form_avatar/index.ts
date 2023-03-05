@@ -1,9 +1,9 @@
-import template from './template.tmpl';
-import Component from '../../../services/Component';
-import {replaceDOM} from '../../../services/render-dom';
+import template		from './template.tmpl';
+import Component	from '../../../services/Component';
+import {replaceDOM}	from '../../../services/render-dom';
 // import login_callback from '../../services/callbacks/callback-login';
 // import {callback_validate} from '../../utils/validation';
-import {Manager} from '../../../services/api/Manager';
+import Manager		from '../../../services/api/Manager';
 
 class Avatar extends Component{
 	render() {
@@ -13,7 +13,6 @@ class Avatar extends Component{
 
 function form_avatar(uuid:string){
 	const block=new Avatar('div',{
-		name: 'form_avatar',
 		id: 'form_avatar',
 		events:{
 			change:(event:SubmitEvent)=>{
@@ -27,7 +26,7 @@ function form_avatar(uuid:string){
 					manager.updateAvatar(data, err_el);
 				}
 			},
-		}
+		},
 	});
 	replaceDOM(uuid, block);
 }

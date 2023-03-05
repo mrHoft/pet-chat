@@ -1,10 +1,7 @@
-.messages_frame{
-	background-color: #1E2D41;
-	padding: 10px;
-	border-radius: 20px 20px 0;
-	margin-left: auto;
-	margin-right: 0;
-	margin-top: 2px;
-	overflow-wrap: break-word;
-	flex-wrap: wrap;
+.date{
+	background-color: var(--message-bg);
+	padding: 2px 10px;
+	margin: 5px;
+	border-radius: 10px;
+	align-self: center;
 }

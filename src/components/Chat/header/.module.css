@@ -7,6 +7,6 @@
 
 .chat_header .name{
 	/* margin-top: 10; */
-	margin-left: 18;
+	margin-left: 10px;
 	/* width: calc(100% - 80px - 18px); */
 }

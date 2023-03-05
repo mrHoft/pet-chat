@@ -1,6 +1,6 @@
 import Component from '../../../services/Component';
 import {replaceDOM} from '../../../services/render-dom';
-import * as classes from './.module.css';
+import classes from './.module.css';
 
 type ButtonProps={
 	name:string,
@@ -11,13 +11,13 @@ type ButtonProps={
 
 class AttachmentButton extends Component<ButtonProps> {
 	constructor(props:ButtonProps) {
-		super("button", props);
+		super('button', props);
 	}
 
 	render():string {
 		if(this.props.text){
 			return this.props.text;
-		}else return '';
+		}return '';
 	}
 }
 
@@ -27,8 +27,8 @@ function attachmentButton(uuid:string, props:Record<string, any>={}):void{
 		text: '&nbsp;',
 		className: classes.attach_button,
 		events:{
-			click:()=>props['onclick'] ? props['onclick']() : window.open('#', '_self')
-		}
+			click:()=>(props['onclick'] ? props['onclick']() : window.open('#', '_self')),
+		},
 	});
 	replaceDOM(uuid, button);
 }

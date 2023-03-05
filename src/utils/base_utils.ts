@@ -13,19 +13,20 @@ function trim(text:string, chars:string=''):string{
 		return text.replace(/^\s+|\s+$/gm,'');
 	}
 	// const reg=new RegExp(chars.split('').join('|'),"gi");
-	const reg=new RegExp(`[${chars}]`, "gi");
+	const reg=new RegExp(`[${chars}]`, 'gi');
 	return text.replace(reg,'');
 }
 
-const isPrimitive=(val:any):boolean => val !== Object(val);
+const isPrimitive=(val:any):boolean => val!==Object(val);
 
-const isObject=(obj:any):boolean => obj != null && typeof obj === 'object';
+const isObject=(obj:any):boolean => obj!=null && typeof obj==='object';
 
 type Indexed<T = any> = {[k in (string | symbol)]: T};
 
 // merge({a: {b: {a: 2}}, d: 5}, {a: {b: {c: 1}}})
 function merge(lhs: Indexed, rhs: Indexed): Indexed {
 	for (const key in rhs) {
+		// eslint-disable-next-line no-prototype-builtins
 		if (!rhs.hasOwnProperty(key)) continue;
 		try {
 			// Property in destination object set; update its value.
@@ -47,12 +48,12 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
 function setValue(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
 	// if (typeof object !== 'object' || object === null) return object;
 	if(isPrimitive(object)) return object;
-	if(typeof(path)!='string' || path=='') throw new Error('path must be string');
+	if(typeof (path)!='string' || path=='') throw new Error('path must be string');
 	// const result=path.split('.').reduceRight<Indexed>((acc, key) => ({[key]: acc,}), value as any); merge(object as Indexed, result);
-	let obj=object as Indexed
-	let arr=path.split('.');
-	let last=arr.pop();
-	arr.forEach(key=>{
+	let obj=object as Indexed;
+	const arr=path.split('.');
+	const last=arr.pop();
+	arr.forEach((key)=>{
 		if(!obj[key]) obj[key]={};
 		obj=obj[key] as Indexed;
 	});
@@ -63,22 +64,22 @@ function setValue(object: Indexed | unknown, path: string, value: unknown): Inde
 function addValue(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
 	// if (typeof object !== 'object' || object === null) return object;
 	if(isPrimitive(object)) return object;
-	if(typeof(path)!='string' || path=='') throw new Error('path must be string');
+	if(typeof (path)!='string' || path=='') throw new Error('path must be string');
 	// const result=path.split('.').reduceRight<Indexed>((acc, key) => ({[key]: acc,}), value as any); merge(object as Indexed, result);
-	let obj=object as Indexed
-	let arr=path.split('.');
-	let last=arr.pop();
-	arr.forEach(key=>{
+	let obj=object as Indexed;
+	const arr=path.split('.');
+	const last=arr.pop();
+	arr.forEach((key)=>{
 		if(!obj[key]) obj[key]={};
 		obj=obj[key] as Indexed;
 	});
-	if(!obj[last!] || !isArray(obj[last!])) obj[last!]=new Array();
+	if(!obj[last!] || !Array.isArray(obj[last!])) obj[last!]=[];
 	// obj[last!].push(value);
 	obj[last!].unshift(value);
 	return object;
 }
 
-/* 
+/*
 function isLowEqual<Obj extends Record<string, any>={}>(a:Obj, b:Obj): boolean {
 	return (Object.keys(a).length==Object.keys(b).length && !Object.keys(b).every(key=>a[key]!==b[key]));
 }
@@ -106,14 +107,10 @@ function isPlainObject(value: unknown): value is PlainObject {
 		&& Object.prototype.toString.call(value) === '[object Object]';
 }
 
-function isArray(value: unknown): value is [] {
-	return Array.isArray(value);
-}
-
 function isArrayOrObject(value: unknown): value is [] | PlainObject {
-	return isPlainObject(value) || isArray(value);
+	return isPlainObject(value) || Array.isArray(value);
 }
-/* 
+/*
 function isEqual2(lhs: PlainObject, rhs: PlainObject) {
 	if (Object.keys(lhs).length !== Object.keys(rhs).length) return false;
 	for (const [key, val1] of Object.entries(lhs)) {
@@ -126,7 +123,7 @@ function isEqual2(lhs: PlainObject, rhs: PlainObject) {
 }
  */
 function cloneDeep2(data:PlainObject):PlainObject {
-	let res={};
+	const res={};
 	const clone=(obj1:PlainObject, obj2:PlainObject)=>{
 		for(const [key, value] of Object.entries(obj2)){
 			if (isArrayOrObject(value)){
@@ -135,7 +132,7 @@ function cloneDeep2(data:PlainObject):PlainObject {
 			}
 			obj1[key]=value;
 		}
-	}
+	};
 	clone(res, data);
 	return res;
 }
@@ -143,47 +140,47 @@ function cloneDeep2(data:PlainObject):PlainObject {
 function cloneDeep<T extends Indexed>(obj: T) {
 	return (function _cloneDeep(item: T): T | Date | Set<unknown> | Map<unknown, unknown> | object | T[] {
 		// Handle: null / undefined / boolean / number / string / symbol / function
-		if (item === null || typeof item !== "object") return item;
-	
+		if (item === null || typeof item !== 'object') return item;
+
 		// Handle: Date
 		if (item instanceof Date) return new Date((item as Date).valueOf());
-	
+
 		// Handle: Array
 		if (item instanceof Array) {
-			let copy: ReturnType<typeof _cloneDeep>[] = [];
+			const copy: ReturnType<typeof _cloneDeep>[] = [];
 			item.forEach((_, i) => (copy[i] = _cloneDeep(item[i])));
 			return copy;
 		}
-	
+
 		// Handle: Set
 		if (item instanceof Set) {
-			let copy = new Set();
-			item.forEach(v => copy.add(_cloneDeep(v)));
+			const copy = new Set();
+			item.forEach((v) => copy.add(_cloneDeep(v)));
 			return copy;
 		}
-	
+
 		// Handle: Map
 		if (item instanceof Map) {
-			let copy = new Map();
+			const copy = new Map();
 			item.forEach((v, k) => copy.set(k, _cloneDeep(v)));
 			return copy;
 		}
-	
+
 		// Handle: Object
 		if (item instanceof Object) {
-			let copy: Indexed = {};
-	
+			const copy: Indexed = {};
+
 			// Handle: Object.symbol
-			Object.getOwnPropertySymbols(item).forEach(s => (copy[s.toString()] = _cloneDeep(item[s.toString()])));
-	
+			Object.getOwnPropertySymbols(item).forEach((s) => (copy[s.toString()] = _cloneDeep(item[s.toString()])));
+
 			// Handle: Object.name (other)
-			Object.keys(item).forEach(k => (copy[k] = _cloneDeep(item[k])));
-	
+			Object.keys(item).forEach((k) => (copy[k] = _cloneDeep(item[k])));
+
 			return copy;
 		}
-	
+
 		throw new Error(`Unable to copy object: ${item}`);
-	})(obj);
+	}(obj));
 }
 
 /*
@@ -211,7 +208,7 @@ function queryStringify<StringIndexed extends Record<string, any>>(data: StringI
 	return res.substring(0, res.length-1);;
 } */
 
-const getKey=(key: string, parentKey?: string) => parentKey ? `${parentKey}[${key}]` : key;
+const getKey=(key: string, parentKey?: string) => (parentKey ? `${parentKey}[${key}]` : key);
 
 function getParams(data: PlainObject | [], parentKey?: string) {
 	const result: [string, string][] = [];
@@ -228,7 +225,7 @@ function getParams(data: PlainObject | [], parentKey?: string) {
 
 function queryString(data: PlainObject) {
 	if (!isPlainObject(data)) throw new Error('input must be an object');
-	return getParams(data).map(arr => arr.join('=')).join('&');
+	return getParams(data).map((arr) => arr.join('=')).join('&');
 }
 
-export {trim, merge, setValue, addValue, isEqual, cloneDeep, cloneDeep2, queryString}
+export {trim, merge, setValue, addValue, isEqual, cloneDeep, cloneDeep2, queryString};
