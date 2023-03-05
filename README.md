@@ -13,6 +13,18 @@ Description: Web chat messenger.
 | `npm test`      | Run tests |
 | `npm lint`      | Linter checks |
 
+Technology stack:
+- PostCSS
+- TypeScript
+- Jest: Tests
+- eslint, stylelint: Custom
+- Husky: Starts precommit tests
+- WebPack
+- Docker
+- Express: To start server inside Docker container
+
+137 files • 40 folders • 566kb
+
 ```markdown
 .
 ├── src
