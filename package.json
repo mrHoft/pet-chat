@@ -48,9 +48,12 @@
 			}
 		}
 	},
-	"# dependencies": "Modules that will be needed to WebPack inside Docker container",
 	"# depInstall": "npm install --omit=dev",
 	"dependencies": {
+		"uuid": "9.0.0"
+	},
+	"# devInstall": "npm install --dev",
+	"devDependencies": {
 		"@types/uuid": "9.0.0",
 		"copy-webpack-plugin": "11.0.0",
 		"css-loader": "6.7.1",
@@ -68,13 +71,6 @@
 		"stylelint-config-standard": "29.0.0",
 		"ts-loader": "9.4.2",
 		"typescript": "4.9.4",
-		"uuid": "9.0.0",
-		"webpack": "5.75.0",
-		"webpack-cli": "5.0.1"
-	},
-	"# devDependencies": "Modules used only in developement",
-	"# devInstall": "npm install --dev",
-	"devDependencies": {
 		"@jest/globals": "29.4.3",
 		"@types/jest": "29.4.0",
 		"autoprefixer": "10.4.13",
@@ -86,6 +82,8 @@
 		"npm-run-all": "4.1.5",
 		"ts-jest": "29.0.5",
 		"ts-node": "^10.9.1",
-		"webpack-dev-server": "4.11.1"
+		"webpack-dev-server": "4.11.1",
+		"webpack": "5.75.0",
+		"webpack-cli": "5.0.1"
 	}
 }
