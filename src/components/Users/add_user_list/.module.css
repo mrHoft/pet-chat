@@ -1,4 +1,6 @@
 .user_list{
+	--bg: var(--modal-bg);
+
 	display: flex;
 	height: 200px;
 }

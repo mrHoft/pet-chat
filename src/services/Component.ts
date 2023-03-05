@@ -1,27 +1,30 @@
 import EventBus from './EventBus';
 
 class Component<Props extends Record<string, any>={}> {
-	static EVENTS = {
-		INIT: "init",
-		FLOW_CDM: "flow:component-did-mount",
-		FLOW_CDU: "flow:component-did-update",
-		FLOW_RENDER: "flow:render"
+	static EVENTS={
+		INIT: 'init',
+		FLOW_CDM: 'flow:component-did-mount',
+		FLOW_CDU: 'flow:component-did-update',
+		FLOW_RENDER: 'flow:render',
 	} as const;
 
 	protected props:Props;
-	private _element:(HTMLElement | null) = null;
+
+	private _element:(HTMLElement | null)=null;
+
 	private _meta:{tagName:string, props:Props};
+
 	private eventBus:() => EventBus;
 
-	constructor(tagName:string = "div", props:Props) {
-		const eventBus = new EventBus();
-		this._meta = {
+	constructor(tagName:string='div', props:Props) {
+		const eventBus=new EventBus();
+		this._meta={
 			tagName,
-			props
+			props,
 		};
 
-		this.props = this._makePropsProxy(props);
-		this.eventBus = () => eventBus;
+		this.props=this._makePropsProxy(props);
+		this.eventBus=() => eventBus;
 		this._registerEvents(eventBus);
 		eventBus.emit(Component.EVENTS.INIT);
 	}
@@ -35,21 +38,21 @@ class Component<Props extends Record<string, any>={}> {
 
 	private _addEvents():void{
 		const {events={}}=this.props;
-		Object.keys(events).forEach(eventName=>{
+		Object.keys(events).forEach((eventName)=>{
 			this._element!.addEventListener(eventName, events[eventName]);
 		});
 	}
 
 	private _removeEvents(oldProps:Props):void{
 		const {events={}}=oldProps;
-		Object.keys(events).forEach(eventName=>{
+		Object.keys(events).forEach((eventName)=>{
 			this._element!.removeEventListener(eventName, events[eventName]);
 		});
 	}
 
 	private _createResources():void {
-		const { tagName } = this._meta;
-		this._element = this._createDocumentElement(tagName);
+		const { tagName }=this._meta;
+		this._element=this._createDocumentElement(tagName);
 	}
 
 	protected init():void {
@@ -69,7 +72,9 @@ class Component<Props extends Record<string, any>={}> {
 	}
 
 	private _componentDidUpdate(oldProps:Props, newProps:Props):void {
+		// console.log('1 Set props');
 		if (this.componentDidUpdate(oldProps, newProps)) {
+			// console.log('2 Set props');
 			this._removeEvents(oldProps);
 			this.eventBus().emit(Component.EVENTS.FLOW_RENDER);
 		}
@@ -78,7 +83,7 @@ class Component<Props extends Record<string, any>={}> {
 	// Может переопределять пользователь, необязательно трогать
 	// Used universal comparison
 	protected componentDidUpdate(oldProps:Props, newProps:Props):boolean {
-		return (Object.keys(oldProps).length==Object.keys(newProps).length && !Object.keys(newProps).every(key=>oldProps[key]!==newProps[key]));
+		return !(Object.keys(oldProps).length==Object.keys(newProps).length && Object.keys(newProps).every((key)=>oldProps[key]==newProps[key]));
 	}
 
 	setProps=(nextProps:Props):void => {
@@ -102,8 +107,8 @@ class Component<Props extends Record<string, any>={}> {
 			if(this.props.contentEditable) this._element!.contentEditable=this.props.contentEditable as string;
 			if(this.props.autofocus) this._element!.autofocus=this.props.autofocus as boolean;
 			if(this.props.placeholder) this._element!.setAttribute('data-placeholder', this.props.placeholder as string);
-		}		
-		if(this._element instanceof HTMLTextAreaElement){	//Changed to div in this project
+		}
+		if(this._element instanceof HTMLTextAreaElement){	// Changed to div in this project
 			if(this.props.rows) this._element!.rows=this.props.rows as number;
 			if(this.props.placeholder) this._element!.placeholder=this.props.placeholder as string;
 			if(this.props.autofocus) this._element!.autofocus=this.props.autofocus as boolean;
@@ -112,7 +117,7 @@ class Component<Props extends Record<string, any>={}> {
 			if(this.props.type) this._element!.type=this.props.type as string;
 			if(this.props.placeholder) this._element!.placeholder=this.props.placeholder as string;
 		}
-		
+
 		this._addEvents();
 		console.log('Rendered', this._meta.tagName, this.props.name || this.props.id);
 	}
@@ -121,7 +126,7 @@ class Component<Props extends Record<string, any>={}> {
 	protected render():string | HTMLElement{
 		if(this.props.text){
 			return this.props.text;
-		}else return '';
+		}return '';
 	}
 
 	getElement(): HTMLElement{
@@ -129,10 +134,10 @@ class Component<Props extends Record<string, any>={}> {
 	}
 
 	private _makePropsProxy(props:Props) {
-		const self = this;
-		const proxy=new Proxy(props, { 
+		const self=this;
+		const proxy=new Proxy(props, {
 			set(target:Record<string, any>, prop:string, newValue:unknown) {
-				const oldTarget={...target}
+				const oldTarget={...target};
 				target[prop]=newValue;
 				self.eventBus().emit(Component.EVENTS.FLOW_CDU, oldTarget, target);
 				return true;
@@ -150,11 +155,11 @@ class Component<Props extends Record<string, any>={}> {
 	}
 
 	show():void {
-		this.getElement().style.display = "Component";
+		this.getElement().style.display='Component';
 	}
 
 	hide():void {
-		this.getElement().style.display = "none";
+		this.getElement().style.display='none';
 	}
 }
 

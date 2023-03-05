@@ -17,22 +17,9 @@ type MessagesProps={
 
 const mapChatsToProps=(state:Indexed)=>state.chats;
 
-function chatsFrame(uuid:string, props:Record<string, any>={}):void{
-	// console.log(props);
-	const HOC=connect(Component, mapChatsToProps);
-	const frame=new HOC('div',<MessagesProps>{
-		id:		'chats_frame',
-		className: 'scrolled',	//classes.chats_frame,
-		update:	renderChats,
-		// events:	{click:()=>props['onclick'] ? props['onclick']() : window.open('/', '_self')}
-	});
-	replaceDOM(uuid, frame);
-	renderChats();
-}
-
 function renderChats(){
 	console.log('...Update chats');
-	let container:HTMLElement | null=document.getElementById('chats_frame');
+	const container:HTMLElement | null=document.getElementById('chats_frame');
 	const chats=mapChatsToProps(store.getState());
 	if(container && chats){
 		container.innerHTML='';
@@ -48,6 +35,19 @@ function renderChats(){
 		});
 		container.appendChild(list);
 	}
+}
+
+function chatsFrame(uuid:string, props:Record<string, any>={}):void{
+	// console.log(props);
+	const HOC=connect(Component, mapChatsToProps);
+	const frame=new HOC('div',<MessagesProps>{
+		id:		'chats_frame',
+		className: 'scrolled',	// classes.chats_frame,
+		update:	renderChats,
+		// events:	{click:()=>props['onclick'] ? props['onclick']() : window.open('/', '_self')}
+	});
+	replaceDOM(uuid, frame);
+	renderChats();
 }
 
 export default chatsFrame;

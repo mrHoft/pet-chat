@@ -1,7 +1,7 @@
-import Component from '../../../services/Component';
+import Component	from '../../../services/Component';
 import {replaceDOM} from '../../../services/render-dom';
-import * as classes from './.module.css';
-import {Manager}	from '../../../services/api/Manager';
+import classes		from './.module.css';
+import Manager		from '../../../services/api/Manager';
 import Store		from '../../../services/Store/Store';
 
 const store=new Store();
@@ -19,8 +19,8 @@ function chatDelete(uuid:string, props:Record<string, any>={}):void{
 		name: 'chat_delete',
 		className: classes.trash,
 		events:{
-			click:()=>manager.deleteChat(store.getState().active_chat.chatId)
-		}
+			click:()=>manager.deleteChat(store.getState().active_chat.chatId),
+		},
 	});
 	replaceDOM(uuid, button);
 }

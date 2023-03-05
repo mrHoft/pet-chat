@@ -1,7 +1,7 @@
 import Router		from './Router/Router';
 import routes		from './Router/routes_data';
 import Store 		from './services/Store/Store';
-import { Manager }	from './services/api/Manager';
+import Manager		from './services/api/Manager';
 import newChat		from './services/api/newChat';
 import searchUser	from './services/api/searchUser';
 
@@ -24,7 +24,7 @@ window.searchUser=searchUser;
 
 // Router initialization that uses functions from
 // 'routes' to render corresponding page
-const router=Router.get(".app");
+const router=Router.get('.app');
 window.router=router;
 router
 	.use('/', routes.start)

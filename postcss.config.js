@@ -1,5 +1,5 @@
 module.exports = {
-    plugins: [
-        require('postcss-simple-vars')({/* ...options */})
-    ]
-}
+	plugins: [
+		require('postcss-simple-vars')({/* ...options */}),
+	],
+};

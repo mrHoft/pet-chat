@@ -1,8 +1,11 @@
 class Route{
-	protected	_pathname:string
-				_page:Function
-				_block:boolean
-				_props:Record<string, any>;
+	public		_pathname:string;
+
+	public		_page:Function;
+
+	protected	_block:boolean;
+
+	protected	_props:Record<string, any>;
 
 	constructor(pathname:string, page:Function, props:Record<string, any>){
 		this._pathname=pathname;
@@ -20,7 +23,7 @@ class Route{
 
 	public leave(){
 		if (this._block){
-			console.log('== Route leaved: ', this._pathname);
+			// console.log('== Route leaved: ', this._pathname);
 			// this._block.hide();
 		}
 	}
@@ -30,8 +33,8 @@ class Route{
 	}
 
 	public render(){
-		if (true){	//!this._block	hide/show block function disabled
-			console.log('== Route: ', this._pathname);
+		if (true){	//! this._block	hide/show block function disabled
+			// console.log('== Route: ', this._pathname);
 			this._block=this._page();
 			return;
 		}
@@ -40,10 +43,14 @@ class Route{
 }
 
 class Router{
-	private		history:History=window.history
+	private		history:History=window.history;
+
 	private		routes:Route[]=[];
-	protected	_currentRoute:Route | null=null
-	protected	_rootQuery:string
+
+	protected	_currentRoute:Route | null=null;
+
+	protected	_rootQuery:string;
+
 	protected static _instance:Router;
 
 	private constructor(rootQuery:string){
@@ -54,8 +61,7 @@ class Router{
 	}
 
 	public static get(rootQuery:string){
-		if (Router._instance)
-			return Router._instance;
+		if (Router._instance) return Router._instance;
 		return Router._instance=new Router(rootQuery);
 	}
 
@@ -75,7 +81,7 @@ class Router{
 	}
 
 	private _onRoute(pathname:string){
-		let route:Route | undefined=this.getRoute(pathname);
+		let route:Route | null=this.getRoute(pathname);
 		if(!route) route=this.getRoute('/404');
 		if(route){
 			if (this._currentRoute) this._currentRoute.leave();
@@ -85,20 +91,26 @@ class Router{
 	}
 
 	public go(pathname:string){
-		this.history.pushState({}, "", pathname);
+		this.history.pushState({route:pathname}, '', pathname);
 		this._onRoute(pathname);
 	}
 
 	public back(){
 		this.history.back();
+		// console.log(this.history.state.route);
+		// const route:Route | null=this.getRoute(this.history.state.route);
+		// if(route) this._currentRoute=route;
 	}
 
 	public forward(){
 		this.history.forward();
+		// const route:Route | null=this.getRoute(this.history.state.route);
+		// if(route) this._currentRoute=route;
 	}
 
-	public getRoute(pathname:string){
-		return this.routes.find(route => route.match(pathname));
+	public getRoute(pathname?:string){
+		if(pathname) return this.routes.find((route) => route.match(pathname)) || null;
+		return this._currentRoute;
 	}
 }
 

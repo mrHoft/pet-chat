@@ -1,21 +1,45 @@
-.message_out{
-	background-color: #1E2D41;
+.message_right{
+	--bg: var(--message-bg-own);
+
+	position: relative;
+	background-color: var(--bg);
 	padding: 10px;
-	border-radius: 20px 20px 0;
+	border-radius: 20px 5px 0 20px;
 	margin-left: auto;
-	margin-right: 0;
-	margin-top: 2px;
+	margin-right: 5px;
+	margin-top: 4px;
 	overflow-wrap: break-word;
 	flex-wrap: wrap;
 }
+.message_right::after{
+	content: "";
+	position: absolute;
+	bottom: 0;
+	right: -8px;
+	border-width: 4px;
+	border-style: solid;
+	border-color: transparent transparent var(--bg) var(--bg);
+}
 
-.message_in{
-	background-color: #1E2D41;
+.message_left{
+	--bg: var(--message-bg);
+
+	position: relative;
+	background-color: var(--bg);
 	padding: 10px;
-	border-radius: 20px 20px 20px 0;
-	margin-left: 0;
+	border-radius: 5px 20px 20px 0;
+	margin-left: 5px;
 	margin-right: auto;
-	margin-top: 2px;
+	margin-top: 4px;
 	overflow-wrap: break-word;
 	flex-wrap: wrap;
+}
+.message_left::after{
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: -8px;
+	border-width: 4px;
+	border-style: solid;
+	border-color: transparent var(--bg) var(--bg) transparent;
 }
