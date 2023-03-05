@@ -1,0 +1,16 @@
+.git
+.github/*
+.gitignore
+/dist/*
+/node_modules/*
+/test/*
+Dockerfile
+.dockerignore
+.editorconfig
+.DS_Store
+README.md
+jest.config.ts
+.mocharc.json
+.parcelrc
+.parcel-cache/*
+*.bak

@@ -1,18 +1,3 @@
-// ==	Pages
-/* Changed to Parcel bundle-text import
-import home from '../pages/home.tmpl';
-import error_page from '../pages/error_page.tmpl';
-import login from '../pages/login.tmpl';
-import signup from '../pages/signup.tmpl';
-import profile from '../pages/profile.tmpl';
-import password_change from '../pages/password_change.tmpl';
-//		Main window
-import chat from '../pages/chat.tmpl';
-import bottom_frame from '../pages/bottom_frame.tmpl';
-import details_frame from '../pages/details_frame.tmpl';
-import side_frame from '../pages/side_frame.tmpl';
-import upper_frame from '../pages/upper_frame.tmpl';
-*/
 // ==	Components
 import buttons		from '../components/Button/buttons';
 import add_text		from '../components/add_text';
@@ -33,25 +18,8 @@ import chat_details from '../components/Chat/details';
 import chat_delete from '../components/Chat/delete';
 import chat_users from '../components/Chat/user_list';
 import add_user_list from '../components/Users/add_user_list';
-// ==	Test
-// import test from '../components/test';
 
 const templates:Record<string, Function | string>={
-//	Pages
-/*
-	bottom_frame,
-	details_frame,
-	side_frame,
-	upper_frame,
-	error_page,
-	chat,
-	home,
-	login,
-	signup,
-	profile,
-	password_change,
-*/
-//	Components
 	text:				add_text,
 	buttons,
 	close_button,

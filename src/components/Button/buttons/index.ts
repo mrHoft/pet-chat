@@ -1,4 +1,4 @@
-import * as classes from './.module.css';
+import classes from './.module.css';
 
 type Params={
 	name: string,
@@ -12,10 +12,10 @@ export default (uuid:string, options:Params[])=>{
 	let out='';
 	// console.log(uuid,options);
 	options?.forEach((element:Params) => {
-		out+=MainButton(element)+'\n';
+		out+=`${MainButton(element)}\n`;
 	});
 	const parent=uuid[0]=='.' ? document.querySelector(uuid) : document.getElementById(uuid);
 	if(parent){
 		parent.innerHTML=out;
 	}
-}
+};

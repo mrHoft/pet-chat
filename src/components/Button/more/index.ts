@@ -1,6 +1,6 @@
 import Component from '../../../services/Component';
 import {replaceDOM} from '../../../services/render-dom';
-import * as classes from './.module.css';
+import classes from './.module.css';
 
 type ButtonProps={
 	name:string,
@@ -16,8 +16,8 @@ function moreButton(uuid:string, props:Record<string, any>={}):void{
 		text: '&#9776;',
 		className: classes.more_button,
 		events:{
-			click:()=>props['onclick'] ? props['onclick']() : window.router.go('/')
-		}
+			click:()=>(props['onclick'] ? props['onclick']() : window.router.go('/')),
+		},
 	});
 	replaceDOM(uuid, button);
 }

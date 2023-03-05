@@ -2,15 +2,16 @@
 
 <img align="right" width="64" height="64" title="Author logo" src="http://daytec.ru/img/Ranjy-96.svg">
 
-## Practicum frontend: sprint_1 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mrHoft/middle.messenger.praktikum.yandex/tests.yml) [![Netlify Status](https://api.netlify.com/api/v1/badges/fdd7d98d-0b8e-4a26-a36c-87dfe5f27e61/deploy-status)](https://pet-chat.netlify.app)
+## Practicum frontend: Messenger ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mrHoft/middle.messenger.praktikum.yandex/tests.yml) [![Netlify Status](https://api.netlify.com/api/v1/badges/fdd7d98d-0b8e-4a26-a36c-87dfe5f27e61/deploy-status)](https://pet-chat.netlify.app)
 
 Description: Web chat messenger.
 
 | Command | Description |
 | --- | --- |
-| `npm run start` | Starts local server at 3000 port |
-| `npm run build` | Makes a build |
-| `npm run test` | Runs Mocha tests |
+| `npm run start` | Start local server at 3000 port |
+| `npm build`     | Make a build |
+| `npm test`      | Run tests |
+| `npm lint`      | Linter checks |
 
 ```markdown
 .

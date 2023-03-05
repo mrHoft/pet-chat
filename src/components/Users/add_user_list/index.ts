@@ -3,7 +3,7 @@ import {replaceDOM}	from '../../../services/render-dom';
 import {TUser}		from '../../../services/api/types';
 import Store		from '../../../services/Store/Store';
 import connect		from '../../../services/Store/connect';
-import * as classes from './.module.css';
+import classes		from './.module.css';
 import userNode		from '../add_user_node';
 
 const store=new Store();
@@ -18,20 +18,9 @@ type DetailsProps={
 
 const mapSearchUsersToProps=(state:Indexed)=>state.search_users;
 
-function searchUsers(uuid:string, props:Indexed={}):void{
-	// console.log(props);
-	const HOC=connect(Component, mapSearchUsersToProps);
-	const frame=new HOC('div',<DetailsProps>{
-		id:		'add_user_list',
-		update:	updateSearchUsers,
-		className: classes.user_list+' scrolled',
-	});
-	replaceDOM(uuid, frame);
-}
-
 function updateSearchUsers(){
 	console.log('...Update search users');
-	let container:HTMLElement | null=document.getElementById('add_user_list');
+	const container:HTMLElement | null=document.getElementById('add_user_list');
 	const data:[]=mapSearchUsersToProps(store.getState());
 	if(container && data){
 		if(data.length>0){
@@ -44,9 +33,19 @@ function updateSearchUsers(){
 				list.appendChild(list_el);
 			});
 			container.appendChild(list);
-		}else
-			container.innerHTML='<p>No users found.</p>';
+		}else container.innerHTML='<p>No users found.</p>';
 	}
+}
+
+function searchUsers(uuid:string, props:Indexed={}):void{
+	// console.log(props);
+	const HOC=connect(Component, mapSearchUsersToProps);
+	const frame=new HOC('div',<DetailsProps>{
+		id:		'add_user_list',
+		update:	updateSearchUsers,
+		className: `${classes.user_list} scrolled`,
+	});
+	replaceDOM(uuid, frame);
 }
 
 export default searchUsers;

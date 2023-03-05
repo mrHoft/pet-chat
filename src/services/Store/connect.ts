@@ -2,6 +2,7 @@ import Component	from '../Component';
 import Store		from './Store';
 import {isEqual, cloneDeep}	from '../../utils/base_utils';
 
+
 function connect(component: typeof Component, mapStateToProps: (state: Indexed) => Indexed) {
 	// используем class expression
 	return class extends component {
@@ -21,13 +22,13 @@ function connect(component: typeof Component, mapStateToProps: (state: Indexed) 
 					// this.setProps({state: {...mapStateToProps(store.getState())}});
 					// сохраняем новое состояние
 					oldState=cloneDeep(newState);
-					if(this.props.update) this.props.update();
+					if(props.update) props.update();
 				}
 			});
 		}
-	}
+	};
 }
-/* 
+/*
 class HOD extends Component {
 	constructor(tag:string, props={}, mapStateToProps:Function) {
 		const store=new Store();

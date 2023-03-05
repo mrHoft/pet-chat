@@ -1,7 +1,7 @@
-import template from './template.tmpl';
-import Component from '../../../services/Component';
-import {replaceDOM} from '../../../services/render-dom';
-import * as classes from './.module.css';
+import template		from './template.tmpl';
+import Component	from '../../../services/Component';
+import {replaceDOM}	from '../../../services/render-dom';
+import classes		from './.module.css';
 
 class SearchForm extends Component{
 	render() {
@@ -19,7 +19,7 @@ function searchForm(uuid:string){
 				event.preventDefault();
 				console.log('search');
 			},
-		}
+		},
 	});
 	replaceDOM(uuid, block);
 }
